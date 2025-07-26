@@ -7,13 +7,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Lightbulb, Loader2, ShoppingCart } from "lucide-react";
 import { demandPredictionAgent, DemandPredictionOutput } from '@/ai/flows/demand-prediction-agent';
 import { useToast } from "@/hooks/use-toast";
-import { mockDemandPredictionInput, allProducts } from '@/lib/data';
+import { mockDemandPredictionInput, allProducts, Product } from '@/lib/data';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useCart } from '@/hooks/use-cart';
 
 export default function ReorderPage() {
   const [prediction, setPrediction] = useState<DemandPredictionOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { addToCart } = useCart();
+
 
   const handlePrediction = async () => {
     setIsLoading(true);
@@ -33,11 +36,21 @@ export default function ReorderPage() {
     }
   };
 
-  const handleAddToCart = (productName: string) => {
-    toast({
-      title: "Added to Cart",
-      description: `${productName} has been added to your cart for reordering.`,
-    });
+  const handleAddToCart = (itemName: string, quantity: number) => {
+    const product = allProducts.find(p => p.name === itemName);
+    if (product) {
+      addToCart({ ...product, quantity });
+      toast({
+        title: "Added to Cart",
+        description: `${quantity} ${product.unit}(s) of ${itemName} has been added to your cart for reordering.`,
+      });
+    } else {
+       toast({
+        title: "Item not found",
+        description: `Could not find "${itemName}" in the product list.`,
+        variant: "destructive",
+      });
+    }
   };
 
   const getSupplierForItem = (itemName: string) => {
@@ -94,7 +107,7 @@ export default function ReorderPage() {
                     <TableCell>{item.suggestedQuantity}</TableCell>
                     <TableCell>{new Date(item.suggestedOrderDate).toLocaleDateString()}</TableCell>
                     <TableCell className="text-right">
-                      <Button size="sm" onClick={() => handleAddToCart(item.itemName)}>
+                      <Button size="sm" onClick={() => handleAddToCart(item.itemName, item.suggestedQuantity)}>
                         <ShoppingCart className="mr-2 h-4 w-4" />
                         Add to Cart
                       </Button>

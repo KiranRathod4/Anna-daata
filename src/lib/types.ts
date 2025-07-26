@@ -33,6 +33,7 @@ export interface Product {
   supplierRating: number;
   imageUrl: string;
   aiHint?: string;
+  quantity?: number;
 }
 
 export interface OrderItem {

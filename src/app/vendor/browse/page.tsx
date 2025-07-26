@@ -6,17 +6,20 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Star, Search, ShoppingCart } from "lucide-react";
-import { allProducts } from "@/lib/data";
+import { allProducts, Product } from "@/lib/data";
 import { useToast } from '@/hooks/use-toast';
+import { useCart } from '@/hooks/use-cart';
 
 export default function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState('');
   const { toast } = useToast();
+  const { addToCart } = useCart();
 
-  const handleAddToCart = (productName: string) => {
+  const handleAddToCart = (product: Product) => {
+    addToCart(product);
     toast({
       title: "Added to Cart",
-      description: `${productName} has been added to your cart.`,
+      description: `${product.name} has been added to your cart.`,
     });
   };
 
@@ -68,7 +71,7 @@ export default function BrowsePage() {
               <p className="text-xl font-semibold mt-2">₹{product.price.toFixed(2)} <span className="text-sm font-normal text-muted-foreground">/ {product.unit}</span></p>
             </CardContent>
             <CardFooter className="p-4 bg-muted/50">
-              <Button className="w-full gap-2" onClick={() => handleAddToCart(product.name)}>
+              <Button className="w-full gap-2" onClick={() => handleAddToCart(product)}>
                 <ShoppingCart className="w-4 h-4"/>
                 Add to Cart
               </Button>
