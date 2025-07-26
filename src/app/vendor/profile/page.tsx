@@ -1,9 +1,21 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 
 export default function VendorProfilePage() {
+  const { toast } = useToast();
+
+  const handleSaveChanges = () => {
+    toast({
+      title: "Profile Updated",
+      description: "Your changes have been saved successfully.",
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -31,7 +43,7 @@ export default function VendorProfilePage() {
           <Label htmlFor="food-type">Food Type / Cuisine</Label>
           <Input id="food-type" defaultValue="Chaat, Vada Pav, Dosa" />
         </div>
-        <Button>Save Changes</Button>
+        <Button onClick={handleSaveChanges}>Save Changes</Button>
       </CardContent>
     </Card>
   );

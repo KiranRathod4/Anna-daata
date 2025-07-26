@@ -1,10 +1,22 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 export default function SupplierProfilePage() {
+  const { toast } = useToast();
+
+  const handleSaveChanges = () => {
+    toast({
+      title: "Profile Updated",
+      description: "Your changes have been saved successfully.",
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -32,7 +44,7 @@ export default function SupplierProfilePage() {
           <Label htmlFor="specialties">Specialties</Label>
           <Textarea id="specialties" defaultValue="Fresh organic vegetables, leafy greens, and seasonal fruits." />
         </div>
-        <Button>Save Changes</Button>
+        <Button onClick={handleSaveChanges}>Save Changes</Button>
       </CardContent>
     </Card>
   );
