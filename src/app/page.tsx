@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { UtensilsCrossed, Store, Lightbulb, Tag, CheckCircle } from 'lucide-react';
+import { UtensilsCrossed, Store } from 'lucide-react';
 import { Logo } from '@/components/logo';
 
 export default function Home() {
@@ -28,8 +28,7 @@ export default function Home() {
             src="https://placehold.co/1920x1080.png"
             alt="Delicious Indian street food"
             data-ai-hint="indian street food"
-            layout="fill"
-            objectFit="cover"
+            fill
             className="absolute inset-0 w-full h-full object-cover opacity-20"
           />
           <div className="container relative px-4 md:px-6 z-10">
