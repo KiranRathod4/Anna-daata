@@ -3,7 +3,7 @@ import { LayoutDashboard, ShoppingBasket, Package, User, ClipboardList } from 'l
 import { Logo } from '@/components/logo';
 import { UserNav } from '@/components/user-nav';
 import { DashboardHeader } from '@/components/dashboard-header';
-import { CartProvider } from '@/hooks/use-cart';
+import { CartProvider } from '@/hooks/use-cart.tsx';
 import { MyCart } from '@/components/vendor/my-cart';
 
 const navItems = [
