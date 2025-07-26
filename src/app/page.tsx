@@ -30,6 +30,7 @@ export default function Home() {
             data-ai-hint="indian street food"
             fill
             className="absolute inset-0 w-full h-full object-cover opacity-20"
+            style={{ objectFit: 'cover' }}
           />
           <div className="container relative px-4 md:px-6 z-10">
             <div className="flex flex-col items-center space-y-6 text-center">
