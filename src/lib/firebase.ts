@@ -16,7 +16,9 @@ const requiredEnvVars = [
 
 for (const envVar of requiredEnvVars) {
   if (!process.env[envVar]) {
-    throw new Error(`Firebase config error: Missing environment variable ${envVar}. Please make sure it is set in your .env.local file.`);
+    // We don't throw an error here anymore because during build time, the variables might not be available.
+    // Instead, we log a warning. The app will fail at initializeApp if the keys are truly missing.
+    console.warn(`Firebase config warning: Missing environment variable ${envVar}.`);
   }
 }
 
