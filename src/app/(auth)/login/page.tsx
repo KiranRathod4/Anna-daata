@@ -19,7 +19,7 @@ function AuthComponent() {
   const handleAuth = () => {
     // Mock authentication logic
     if (role === 'vendor') {
-      router.push('/dashboard');
+      router.push('/vendor/dashboard');
     } else {
       router.push('/supplier/dashboard');
     }

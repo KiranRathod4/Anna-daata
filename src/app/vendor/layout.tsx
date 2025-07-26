@@ -5,10 +5,10 @@ import { UserNav } from '@/components/user-nav';
 import { DashboardHeader } from '@/components/dashboard-header';
 
 const navItems = [
-  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/browse", icon: ShoppingBasket, label: "Browse" },
-  { href: "/orders", icon: Package, label: "My Orders" },
-  { href: "/profile", icon: User, label: "Profile" },
+  { href: "/vendor/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/vendor/browse", icon: ShoppingBasket, label: "Browse" },
+  { href: "/vendor/orders", icon: Package, label: "My Orders" },
+  { href: "/vendor/profile", icon: User, label: "Profile" },
 ];
 
 export default function VendorLayout({
