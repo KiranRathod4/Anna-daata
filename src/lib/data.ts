@@ -14,14 +14,14 @@ export const suppliers: Supplier[] = [
 
 // All Products from various suppliers for browse page
 export const allProducts: Product[] = [
-  { id: 'prod1', name: 'Fresh Tomatoes', price: 40, unit: 'kg', inStock: true, stock: 100, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'fresh tomatoes' },
-  { id: 'prod2', name: 'Amul Gold Milk', price: 66, unit: 'liter', inStock: true, stock: 200, supplierId: 'sup2', supplierName: 'Amul Dairy Distributors', supplierRating: 4.5, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'milk carton' },
-  { id: 'prod3', name: 'Turmeric Powder', price: 250, unit: 'kg', inStock: true, stock: 50, supplierId: 'sup3', supplierName: 'Kerala Spice Hub', supplierRating: 4.9, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'turmeric powder' },
-  { id: 'prod4', name: 'Onions', price: 30, unit: 'kg', inStock: true, stock: 150, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'fresh onions' },
-  { id: 'prod5', name: 'Whole Wheat Atta', price: 45, unit: 'kg', inStock: false, stock: 0, supplierId: 'sup4', supplierName: 'Delhi Flour & Grains', supplierRating: 4.2, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'wheat flour' },
-  { id: 'prod6', name: 'Paneer', price: 400, unit: 'kg', inStock: true, stock: 30, supplierId: 'sup2', supplierName: 'Amul Dairy Distributors', supplierRating: 4.5, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'paneer block' },
-  { id: 'prod7', name: 'Red Chilli Powder', price: 300, unit: 'kg', inStock: true, stock: 80, supplierId: 'sup3', supplierName: 'Kerala Spice Hub', supplierRating: 4.9, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'chilli powder' },
-  { id: 'prod8', name: 'Potatoes', price: 25, unit: 'kg', inStock: true, stock: 300, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'fresh potatoes' },
+  { id: 'prod1', name: 'Fresh Tomatoes', price: 40, unit: 'kg', inStock: true, stock: 100, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://picsum.photos/seed/tomatoes/400/250', aiHint: 'fresh tomatoes' },
+  { id: 'prod2', name: 'Amul Gold Milk', price: 66, unit: 'liter', inStock: true, stock: 200, supplierId: 'sup2', supplierName: 'Amul Dairy Distributors', supplierRating: 4.5, imageUrl: 'https://picsum.photos/seed/milk/400/250', aiHint: 'milk carton' },
+  { id: 'prod3', name: 'Turmeric Powder', price: 250, unit: 'kg', inStock: true, stock: 50, supplierId: 'sup3', supplierName: 'Kerala Spice Hub', supplierRating: 4.9, imageUrl: 'https://picsum.photos/seed/turmeric/400/250', aiHint: 'turmeric powder' },
+  { id: 'prod4', name: 'Onions', price: 30, unit: 'kg', inStock: true, stock: 150, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://picsum.photos/seed/onions/400/250', aiHint: 'fresh onions' },
+  { id: 'prod5', name: 'Whole Wheat Atta', price: 45, unit: 'kg', inStock: false, stock: 0, supplierId: 'sup4', supplierName: 'Delhi Flour & Grains', supplierRating: 4.2, imageUrl: 'https://picsum.photos/seed/flour/400/250', aiHint: 'wheat flour' },
+  { id: 'prod6', name: 'Paneer', price: 400, unit: 'kg', inStock: true, stock: 30, supplierId: 'sup2', supplierName: 'Amul Dairy Distributors', supplierRating: 4.5, imageUrl: 'https://picsum.photos/seed/paneer/400/250', aiHint: 'paneer block' },
+  { id: 'prod7', name: 'Red Chilli Powder', price: 300, unit: 'kg', inStock: true, stock: 80, supplierId: 'sup3', supplierName: 'Kerala Spice Hub', supplierRating: 4.9, imageUrl: 'https://picsum.photos/seed/chilli/400/250', aiHint: 'chilli powder' },
+  { id: 'prod8', name: 'Potatoes', price: 25, unit: 'kg', inStock: true, stock: 300, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://picsum.photos/seed/potatoes/400/250', aiHint: 'fresh potatoes' },
 ];
 
 // Specific Supplier's products
@@ -75,9 +75,9 @@ export const allSupplierOrders: SupplierOrder[] = [
 ];
 
 export const recentReviews: Review[] = [
-    { id: 'rev1', vendorName: 'Mumbai Chaat House', rating: 5, comment: 'Always fresh and on time!', avatarUrl: 'https://placehold.co/40x40.png', aiHint: 'smiling woman' },
-    { id: 'rev2', vendorName: 'Delhi Dosa Point', rating: 4, comment: 'Good quality, sometimes a bit late.', avatarUrl: 'https://placehold.co/40x40.png', aiHint: 'man portrait' },
-    { id: 'rev3', vendorName: 'Kolkata Rolls', rating: 5, comment: 'The best onions and potatoes in the city!', avatarUrl: 'https://placehold.co/40x40.png', aiHint: 'woman face' },
+    { id: 'rev1', vendorName: 'Mumbai Chaat House', rating: 5, comment: 'Always fresh and on time!', avatarUrl: 'https://picsum.photos/seed/woman-smiling/40/40', aiHint: 'smiling woman' },
+    { id: 'rev2', vendorName: 'Delhi Dosa Point', rating: 4, comment: 'Good quality, sometimes a bit late.', avatarUrl: 'https://picsum.photos/seed/man-portrait/40/40', aiHint: 'man portrait' },
+    { id: 'rev3', vendorName: 'Kolkata Rolls', rating: 5, comment: 'The best onions and potatoes in the city!', avatarUrl: 'https://picsum.photos/seed/woman-face/40/40', aiHint: 'woman face' },
 ];
 
 // AI Flow Inputs

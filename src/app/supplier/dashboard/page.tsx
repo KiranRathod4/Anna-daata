@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { CircleDollarSign, Package, Star, TrendingUp } from "lucide-react";
 import { recentOrders, supplierStats, recentReviews } from "@/lib/data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
 
 export default function SupplierDashboard() {
   return (
