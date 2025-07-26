@@ -15,6 +15,7 @@ import { auth } from '@/lib/firebase';
 import { signOut } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 
 export function UserNav() {
@@ -43,7 +44,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-9 w-9">
-            <AvatarImage src="https://placehold.co/100x100.png" alt="@user" data-ai-hint="user avatar" />
+            <AvatarImage src="https://placehold.co/100x100.png" alt="@user" />
             <AvatarFallback>PS</AvatarFallback>
           </Avatar>
         </Button>

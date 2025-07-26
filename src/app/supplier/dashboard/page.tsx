@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { CircleDollarSign, Package, Star, TrendingUp } from "lucide-react";
 import { recentOrders, supplierStats, recentReviews } from "@/lib/data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
 
 export default function SupplierDashboard() {
   return (
@@ -93,7 +94,7 @@ export default function SupplierDashboard() {
             {recentReviews.map((review) => (
               <div key={review.id} className="flex items-start gap-4">
                 <Avatar>
-                  <AvatarImage src={review.avatarUrl} alt={review.vendorName} data-ai-hint={review.aiHint} />
+                  <AvatarImage src={review.avatarUrl} alt={review.vendorName} />
                   <AvatarFallback>{review.vendorName.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
