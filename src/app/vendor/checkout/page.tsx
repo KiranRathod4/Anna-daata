@@ -16,6 +16,7 @@ export default function CheckoutPage() {
   const router = useRouter();
 
   useEffect(() => {
+    // Redirect if cart is empty when the page loads
     if (cart.length === 0) {
       router.replace('/vendor/browse');
     }
@@ -27,9 +28,10 @@ export default function CheckoutPage() {
       description: "Your order has been successfully placed. Thank you!",
     });
     clearCart();
-    router.push('/vendor/dashboard');
+    router.push('/vendor/orders');
   };
 
+  // Prevent rendering if cart is empty to avoid flash of content
   if (cart.length === 0) {
     return null; 
   }
