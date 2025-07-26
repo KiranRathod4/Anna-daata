@@ -80,8 +80,8 @@ export function Logo({ className }: { className?: string }) {
               <circle cx="40" cy="35" r="6" fill="url(#veggieRed)" stroke="#4E342E" />
               <ellipse cx="55" cy="35" rx="7" ry="5" fill="url(#veggieGreen)" stroke="#4E342E" transform="rotate(20 55 35)" />
               <path d="M 60 40 C 65 35, 70 40, 65 45" fill="url(#veggieYellow)" stroke="#4E342E" />
-               <path d="M 35 42 C 38 38, 42 38, 45 42" fill="none" stroke="url(#veggieGreen)" stroke-width="2.5" stroke-linecap="round"/>
-               <path d="M 50 44 C 53 40, 57 40, 60 44" fill="none" stroke="#E53935" stroke-width="2" stroke-linecap="round"/>
+               <path d="M 35 42 C 38 38, 42 38, 45 42" fill="none" stroke="url(#veggieGreen)" strokeWidth="2.5" strokeLinecap="round"/>
+               <path d="M 50 44 C 53 40, 57 40, 60 44" fill="none" stroke="#E53935" strokeWidth="2" strokeLinecap="round"/>
             </g>
           </svg>
       </div>
