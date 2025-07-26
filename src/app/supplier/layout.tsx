@@ -1,5 +1,5 @@
 import { SidebarProvider, Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarInset, SidebarTrigger, SidebarHeader, SidebarContent, useSidebar } from '@/components/ui/sidebar';
-import { LayoutDashboard, ClipboardList, Truck, User } from 'lucide-react';
+import { LayoutDashboard, ClipboardList, Truck, User, Settings } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { UserNav } from '@/components/user-nav';
 import { DashboardHeader } from '@/components/dashboard-header';
@@ -10,6 +10,7 @@ const navItems = [
   { href: "/supplier/listings", icon: ClipboardList, label: "Listings" },
   { href: "/supplier/orders", icon: Truck, label: "Orders" },
   { href: "/supplier/profile", icon: User, label: "Profile" },
+  { href: "/supplier/settings", icon: Settings, label: "Settings" },
 ];
 
 export default function SupplierLayout({

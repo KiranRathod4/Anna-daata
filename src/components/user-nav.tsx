@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -24,6 +25,7 @@ export function UserNav() {
 
   const isVendor = pathname.startsWith('/vendor');
   const profilePath = isVendor ? '/vendor/profile' : '/supplier/profile';
+  const settingsPath = isVendor ? '/vendor/settings' : '/supplier/settings';
   
   const userName = isVendor ? "Priya Sharma" : "Ravi Kumar";
   const userEmail = isVendor ? "priya@example.com" : "ravi@example.com";
@@ -45,13 +47,6 @@ export function UserNav() {
       });
     }
   };
-
-  const handleSettingsClick = () => {
-    toast({
-      title: "Coming Soon!",
-      description: "The settings page is currently under development.",
-    });
-  }
 
   return (
     <DropdownMenu>
@@ -75,7 +70,7 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={() => router.push(profilePath)}>Profile</DropdownMenuItem>
-          <DropdownMenuItem onClick={handleSettingsClick}>Settings</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push(settingsPath)}>Settings</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
