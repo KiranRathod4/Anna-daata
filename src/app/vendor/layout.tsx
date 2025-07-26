@@ -1,5 +1,5 @@
 import { SidebarProvider, Sidebar, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarInset, SidebarTrigger, SidebarHeader, SidebarContent } from '@/components/ui/sidebar';
-import { LayoutDashboard, ShoppingBasket, Package, User } from 'lucide-react';
+import { LayoutDashboard, ShoppingBasket, Package, User, ClipboardList } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { UserNav } from '@/components/user-nav';
 import { DashboardHeader } from '@/components/dashboard-header';
@@ -8,6 +8,7 @@ const navItems = [
   { href: "/vendor/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/vendor/browse", icon: ShoppingBasket, label: "Browse" },
   { href: "/vendor/orders", icon: Package, label: "My Orders" },
+  { href: "/vendor/reorder", icon: ClipboardList, label: "Reorder" },
   { href: "/vendor/profile", icon: User, label: "Profile" },
 ];
 
