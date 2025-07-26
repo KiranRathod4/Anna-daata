@@ -8,6 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -17,10 +18,13 @@ import { useCart } from "@/hooks/use-cart";
 import { ShoppingBag, Trash2 } from "lucide-react";
 import Image from 'next/image';
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function MyCart() {
-  const { cart, removeFromCart, total, clearCart } = useCart();
+  const { cart, removeFromCart, total } = useCart();
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleCheckout = () => {
      if (cart.length === 0) {
@@ -31,11 +35,7 @@ export function MyCart() {
       });
       return;
     }
-    toast({
-      title: "Checkout Successful",
-      description: "Your order has been placed.",
-    });
-    clearCart();
+    router.push('/vendor/checkout');
   }
 
   return (
@@ -88,7 +88,11 @@ export function MyCart() {
             <span>Total</span>
             <span>₹{total.toFixed(2)}</span>
           </div>
-          <Button className="w-full" onClick={handleCheckout}>Proceed to Checkout</Button>
+           <SheetClose asChild>
+              <Button className="w-full" onClick={handleCheckout} disabled={cart.length === 0}>
+                Proceed to Checkout
+              </Button>
+           </SheetClose>
         </SheetFooter>
       </SheetContent>
     </Sheet>
