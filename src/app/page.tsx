@@ -25,7 +25,7 @@ export default function Home() {
         <section className="relative w-full py-20 md:py-32 lg:py-40 bg-card overflow-hidden">
            <div className="absolute inset-0 bg-primary/10 opacity-50"></div>
            <Image
-            src="https://storage.googleapis.com/aif-us-build-dev-001/5a539097-f814-4328-9a99-92c28646b9a8.png"
+            src="https://storage.googleapis.com/aif-us-build-dev-001/a0c49588-9333-42b2-a228-a5a8e239b699.png"
             alt="A female street food vendor serves fresh vegetables to a customer."
             data-ai-hint="vegetable stall"
             fill
