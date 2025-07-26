@@ -5,6 +5,7 @@ import { UserNav } from '@/components/user-nav';
 import { DashboardHeader } from '@/components/dashboard-header';
 import { CartProvider } from '@/hooks/use-cart.tsx';
 import { MyCart } from '@/components/vendor/my-cart';
+import { OrderProvider } from '@/hooks/use-orders';
 
 const navItems = [
   { href: "/vendor/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -21,41 +22,43 @@ export default function VendorLayout({
 }) {
   return (
     <CartProvider>
-      <SidebarProvider>
-        <Sidebar>
-          <SidebarHeader>
-            <div className="flex items-center justify-center p-2 group-data-[collapsible=icon]:hidden">
-               <Logo />
-            </div>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton href={item.href} tooltip={item.label}>
-                    <item.icon />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarContent>
-        </Sidebar>
-        <SidebarInset className="bg-background">
-          <DashboardHeader>
-            <div className="md:hidden">
-              <SidebarTrigger />
-            </div>
-            <div className="ml-auto flex items-center gap-4">
-              <MyCart />
-              <UserNav />
-            </div>
-          </DashboardHeader>
-          <main className="p-4 md:p-8">
-            {children}
-          </main>
-        </SidebarInset>
-      </SidebarProvider>
+      <OrderProvider>
+        <SidebarProvider>
+          <Sidebar>
+            <SidebarHeader>
+              <div className="flex items-center justify-center p-2 group-data-[collapsible=icon]:hidden">
+                <Logo />
+              </div>
+            </SidebarHeader>
+            <SidebarContent>
+              <SidebarMenu>
+                {navItems.map((item) => (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton href={item.href} tooltip={item.label}>
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarContent>
+          </Sidebar>
+          <SidebarInset className="bg-background">
+            <DashboardHeader>
+              <div className="md:hidden">
+                <SidebarTrigger />
+              </div>
+              <div className="ml-auto flex items-center gap-4">
+                <MyCart />
+                <UserNav />
+              </div>
+            </DashboardHeader>
+            <main className="p-4 md:p-8">
+              {children}
+            </main>
+          </SidebarInset>
+        </SidebarProvider>
+      </OrderProvider>
     </CartProvider>
   );
 }

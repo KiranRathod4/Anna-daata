@@ -1,12 +1,41 @@
+"use client";
+
 import { DynamicDealsCard } from "@/components/vendor/dynamic-deals-card";
 import { DemandPredictionCard } from "@/components/vendor/demand-prediction-card";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { vendorRecentOrders, vendorStats } from "@/lib/data";
+import { vendorStats as initialVendorStats } from "@/lib/data";
 import { ShoppingCart, PackageCheck, Star, Clock } from "lucide-react";
+import { useOrders } from "@/hooks/use-orders";
+import { useEffect, useState } from "react";
+import { VendorOrder } from "@/lib/types";
 
 export default function VendorDashboard() {
+  const { allVendorOrders } = useOrders();
+  const [vendorStats, setVendorStats] = useState(initialVendorStats);
+  const [recentOrders, setRecentOrders] = useState<VendorOrder[]>([]);
+
+  useEffect(() => {
+    // Update stats based on orders
+    const totalOrders = allVendorOrders.length;
+    const completedOrders = allVendorOrders.filter(o => o.status === 'Delivered').length;
+    const lastOrderDate = totalOrders > 0 ? new Date(allVendorOrders[0].date!) : new Date();
+    const lastOrderDays = Math.floor((new Date().getTime() - lastOrderDate.getTime()) / (1000 * 3600 * 24));
+    
+    // In a real app, favorite supplier would be calculated from order items
+    setVendorStats(prevStats => ({
+      ...prevStats,
+      totalOrders,
+      completedOrders,
+      lastOrderDays,
+    }));
+    
+    // Update recent orders list
+    setRecentOrders(allVendorOrders.slice(0, 3));
+
+  }, [allVendorOrders]);
+
   return (
     <div className="flex flex-col gap-8">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -27,7 +56,7 @@ export default function VendorDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{vendorStats.completedOrders}</div>
-            <p className="text-xs text-muted-foreground">2 pending</p>
+            <p className="text-xs text-muted-foreground">{vendorStats.totalOrders - vendorStats.completedOrders} pending</p>
           </CardContent>
         </Card>
         <Card>
@@ -71,7 +100,7 @@ export default function VendorDashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {vendorRecentOrders.map((order) => (
+              {recentOrders.map((order) => (
                 <TableRow key={order.id}>
                   <TableCell className="font-medium">{order.id}</TableCell>
                   <TableCell>{order.supplierName}</TableCell>

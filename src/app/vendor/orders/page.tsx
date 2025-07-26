@@ -6,11 +6,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { allVendorOrders } from "@/lib/data";
 import { useToast } from "@/hooks/use-toast";
+import { useOrders } from "@/hooks/use-orders";
 
 export default function VendorOrdersPage() {
   const { toast } = useToast();
+  const { allVendorOrders } = useOrders();
 
   const handleAction = (action: string, orderId: string) => {
     toast({
@@ -44,7 +45,7 @@ export default function VendorOrdersPage() {
               <TableRow key={order.id}>
                 <TableCell className="font-medium">{order.id}</TableCell>
                 <TableCell>{order.supplierName}</TableCell>
-                <TableCell>{new Date(order.date).toLocaleDateString()}</TableCell>
+                <TableCell>{new Date(order.date!).toLocaleDateString()}</TableCell>
                 <TableCell>
                   <Badge variant={order.status === 'Delivered' ? 'default' : 'secondary'} 
                     className={

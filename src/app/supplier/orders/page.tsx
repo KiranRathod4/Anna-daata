@@ -1,12 +1,16 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { allSupplierOrders } from "@/lib/data";
+import { useOrders } from "@/hooks/use-orders";
 
 export default function SupplierOrdersPage() {
+  const { allSupplierOrders } = useOrders();
+
   return (
     <Card>
       <CardHeader>

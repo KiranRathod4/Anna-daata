@@ -9,9 +9,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useOrders } from "@/hooks/use-orders";
 
 export default function CheckoutPage() {
   const { cart, total, clearCart } = useCart();
+  const { addOrder } = useOrders();
   const { toast } = useToast();
   const router = useRouter();
 
@@ -23,6 +25,7 @@ export default function CheckoutPage() {
   }, [cart, router]);
 
   const handleConfirmOrder = () => {
+    addOrder(cart, total);
     toast({
       title: "Order Placed!",
       description: "Your order has been successfully placed. Thank you!",
