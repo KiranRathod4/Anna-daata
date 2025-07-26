@@ -84,7 +84,7 @@ export function DynamicDealsCard() {
         </ScrollArea>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleGetDeals} disabled={isLoading} className="w-full" variant="secondary">
+        <Button onClick={handleGetDeals} disabled={isLoading} className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
           {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Tag className="mr-2 h-4 w-4" />}
           {isLoading ? 'Hunting for Bargains...' : 'Find Deals Now'}
         </Button>

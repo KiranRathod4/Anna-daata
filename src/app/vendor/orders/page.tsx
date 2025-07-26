@@ -1,3 +1,5 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -5,8 +7,18 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { allVendorOrders } from "@/lib/data";
+import { useToast } from "@/hooks/use-toast";
 
 export default function VendorOrdersPage() {
+  const { toast } = useToast();
+
+  const handleAction = (action: string, orderId: string) => {
+    toast({
+      title: `Action: ${action}`,
+      description: `Action '${action}' was triggered for order ${orderId}.`,
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -55,9 +67,9 @@ export default function VendorOrdersPage() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>View Details</DropdownMenuItem>
-                      <DropdownMenuItem>Leave a Review</DropdownMenuItem>
-                      <DropdownMenuItem>Contact Supplier</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleAction('View Details', order.id)}>View Details</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleAction('Leave a Review', order.id)}>Leave a Review</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleAction('Contact Supplier', order.id)}>Contact Supplier</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

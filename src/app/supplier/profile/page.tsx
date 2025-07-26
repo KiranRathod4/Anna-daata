@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,13 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function SupplierProfilePage() {
   const { toast } = useToast();
+
+  const [businessName, setBusinessName] = useState("Fresh Veggies Co.");
+  const [contactPerson, setContactPerson] = useState("Ravi Kumar");
+  const [phone, setPhone] = useState("+91 98765 43210");
+  const [address, setAddress] = useState("123 Market Road, Bengaluru");
+  const [specialties, setSpecialties] = useState("Fresh organic vegetables, leafy greens, and seasonal fruits.");
+
 
   const handleSaveChanges = () => {
     toast({
@@ -26,23 +34,23 @@ export default function SupplierProfilePage() {
       <CardContent className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="business-name">Business Name</Label>
-          <Input id="business-name" defaultValue="Fresh Veggies Co." />
+          <Input id="business-name" value={businessName} onChange={(e) => setBusinessName(e.target.value)} />
         </div>
         <div className="space-y-2">
           <Label htmlFor="contact-person">Contact Person</Label>
-          <Input id="contact-person" defaultValue="Ravi Kumar" />
+          <Input id="contact-person" value={contactPerson} onChange={(e) => setContactPerson(e.target.value)} />
         </div>
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>
-          <Input id="phone" type="tel" defaultValue="+91 98765 43210" />
+          <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
         </div>
         <div className="space-y-2">
           <Label htmlFor="address">Business Address</Label>
-          <Input id="address" defaultValue="123 Market Road, Bengaluru" />
+          <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
         </div>
         <div className="space-y-2">
           <Label htmlFor="specialties">Specialties</Label>
-          <Textarea id="specialties" defaultValue="Fresh organic vegetables, leafy greens, and seasonal fruits." />
+          <Textarea id="specialties" value={specialties} onChange={(e) => setSpecialties(e.target.value)} />
         </div>
         <Button onClick={handleSaveChanges}>Save Changes</Button>
       </CardContent>

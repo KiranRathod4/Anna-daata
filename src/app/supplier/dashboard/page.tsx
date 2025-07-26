@@ -94,7 +94,7 @@ export default function SupplierDashboard() {
             {recentReviews.map((review) => (
               <div key={review.id} className="flex items-start gap-4">
                 <Avatar>
-                  <AvatarImage src={review.avatarUrl} alt={review.vendorName} data-ai-hint={review.aiHint} />
+                  <AvatarImage src={review.avatarUrl} alt={review.vendorName} />
                   <AvatarFallback>{review.vendorName.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
@@ -115,5 +115,3 @@ export default function SupplierDashboard() {
     </div>
   );
 }
-
-    

@@ -1,13 +1,29 @@
+"use client";
+
+import { useState } from 'react';
 import Image from "next/image";
-import Link from "next/link";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Star, Search, ShoppingCart } from "lucide-react";
 import { allProducts } from "@/lib/data";
-import { Badge } from "@/components/ui/badge";
+import { useToast } from '@/hooks/use-toast';
 
 export default function BrowsePage() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const { toast } = useToast();
+
+  const handleAddToCart = (productName: string) => {
+    toast({
+      title: "Added to Cart",
+      description: `${productName} has been added to your cart.`,
+    });
+  };
+
+  const filteredProducts = allProducts.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -20,12 +36,14 @@ export default function BrowsePage() {
           type="search"
           placeholder="Search for vegetables, spices, dairy..."
           className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {allProducts.map((product) => (
-          <Card key={product.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+        {filteredProducts.map((product) => (
+          <Card key={product.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col">
             <CardHeader className="p-0">
               <Image
                 src={product.imageUrl}
@@ -36,7 +54,7 @@ export default function BrowsePage() {
                 className="w-full h-48 object-cover"
               />
             </CardHeader>
-            <CardContent className="p-4">
+            <CardContent className="p-4 flex-grow">
               <div className="flex justify-between items-start">
                 <div>
                   <CardTitle className="text-lg font-headline">{product.name}</CardTitle>
@@ -50,7 +68,7 @@ export default function BrowsePage() {
               <p className="text-xl font-semibold mt-2">₹{product.price.toFixed(2)} <span className="text-sm font-normal text-muted-foreground">/ {product.unit}</span></p>
             </CardContent>
             <CardFooter className="p-4 bg-muted/50">
-              <Button className="w-full gap-2">
+              <Button className="w-full gap-2" onClick={() => handleAddToCart(product.name)}>
                 <ShoppingCart className="w-4 h-4"/>
                 Add to Cart
               </Button>
