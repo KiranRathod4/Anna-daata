@@ -84,7 +84,7 @@ export function Logo({ className }: { className?: string }) {
             <path d="M 2, 95 H 98" stroke="#4E342E" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
       </div>
-      <div className="text-center mt-[-20px]">
+      <div className="text-center mt-[-15px]">
          <h1 className="text-2xl font-bold font-headline" style={{ color: '#4E342E' }}>ANNA DAATA</h1>
          <p className="text-xs font-semibold" style={{ color: '#FB8C00' }}>SAHI DAAM, SAHI SAAMAAN</p>
       </div>
