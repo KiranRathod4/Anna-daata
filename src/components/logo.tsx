@@ -14,17 +14,21 @@ export function Logo({ className }: { className?: string }) {
             strokeWidth="2"
           >
             <defs>
-              <linearGradient id="burgerBun" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#FDB813" />
-                <stop offset="100%" stopColor="#F9A825" />
-              </linearGradient>
-              <linearGradient id="burgerMeat" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#C62828" />
-                <stop offset="100%" stopColor="#B71C1C" />
-              </linearGradient>
                <linearGradient id="truckBody" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#FB8C00" />
                 <stop offset="100%" stopColor="#F57C00" />
+              </linearGradient>
+               <linearGradient id="veggieRed" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#E53935" />
+                <stop offset="100%" stopColor="#C62828" />
+              </linearGradient>
+               <linearGradient id="veggieGreen" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#43A047" />
+                <stop offset="100%" stopColor="#2E7D32" />
+              </linearGradient>
+               <linearGradient id="veggieYellow" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#FDD835" />
+                <stop offset="100%" stopColor="#FBC02D" />
               </linearGradient>
             </defs>
             
@@ -47,7 +51,6 @@ export function Logo({ className }: { className?: string }) {
             <path d="M 27 50 C 27 48, 30 48, 30 50" stroke="#FFFFFF" fill="none" />
             <path d="M 33 50 C 33 48, 36 48, 36 50" stroke="#FFFFFF" fill="none" />
             <path d="M 39 50 C 39 48, 42 48, 42 50" stroke="#FFFFFF" fill="none" />
-
             
             {/* Grill */}
             <path d="M 89,75 L 86,65 H 92 L 89,75 Z" fill="#BDBDBD" stroke="#4E342E" />
@@ -69,13 +72,16 @@ export function Logo({ className }: { className?: string }) {
             <path d="M 80,90 H 95" stroke="#4E342E" />
             <path d="M 35,90 H 65" stroke="#4E342E" />
 
-            {/* Burger */}
+            {/* Veggie Plate */}
             <g transform="translate(0, -5)">
-              <path d="M 30,30 H 70 C 70,20 60,15 50,15 C 40,15 30,20 30,30 Z" fill="url(#burgerBun)" stroke="#4E342E" />
-              <rect x="30" y="30" width="40" height="4" rx="2" fill="#FFFFFF" stroke="#4E342E" />
-              <path d="M 31 36 C 33 34, 35 34, 37 36 S 41 38, 43 36 S 47 34, 49 36 S 53 38, 55 36 S 59 34, 61 36 S 65 38, 67 36" fill="none" stroke="#4CAF50" strokeWidth="2.5" strokeLinecap="round" />
-              <rect x="30" y="38" width="40" height="5" rx="2" fill="url(#burgerMeat)" stroke="#4E342E" />
-              <rect x="30" y="43" width="40" height="7" rx="2" fill="url(#burgerBun)" stroke="#4E342E" />
+              {/* Plate */}
+              <path d="M 25 45 Q 50 55 75 45 L 70 50 Q 50 60 30 50 Z" fill="#FFFFFF" stroke="#4E342E" />
+              {/* Veggies */}
+              <circle cx="40" cy="35" r="6" fill="url(#veggieRed)" stroke="#4E342E" />
+              <ellipse cx="55" cy="35" rx="7" ry="5" fill="url(#veggieGreen)" stroke="#4E342E" transform="rotate(20 55 35)" />
+              <path d="M 60 40 C 65 35, 70 40, 65 45" fill="url(#veggieYellow)" stroke="#4E342E" />
+               <path d="M 35 42 C 38 38, 42 38, 45 42" fill="none" stroke="url(#veggieGreen)" stroke-width="2.5" stroke-linecap="round"/>
+               <path d="M 50 44 C 53 40, 57 40, 60 44" fill="none" stroke="#E53935" stroke-width="2" stroke-linecap="round"/>
             </g>
           </svg>
       </div>
