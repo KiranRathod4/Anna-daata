@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { CircleDollarSign, Package, Star, TrendingUp } from "lucide-react";
-import { recentOrders, recentReviews, supplierStats } from "@/lib/data";
+import { recentOrders, supplierStats } from "@/lib/data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function SupplierDashboard() {
