@@ -14,9 +14,15 @@ export function Logo({ className }: { className?: string }) {
             strokeWidth="2"
           >
             <defs>
-               <linearGradient id="truckBody" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#FB8C00" />
-                <stop offset="100%" stopColor="#F57C00" />
+              <linearGradient id="awning" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#FFFFFF" />
+                  <stop offset="25%" stopColor="#FFFFFF" />
+                  <stop offset="25%" stopColor="#E53935" />
+                  <stop offset="50%" stopColor="#E53935" />
+                  <stop offset="50%" stopColor="#FFFFFF" />
+                  <stop offset="75%" stopColor="#FFFFFF" />
+                  <stop offset="75%" stopColor="#E53935" />
+                  <stop offset="100%" stopColor="#E53935" />
               </linearGradient>
                <linearGradient id="veggieRed" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#E53935" />
@@ -26,66 +32,59 @@ export function Logo({ className }: { className?: string }) {
                 <stop offset="0%" stopColor="#43A047" />
                 <stop offset="100%" stopColor="#2E7D32" />
               </linearGradient>
-               <linearGradient id="veggieYellow" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#FDD835" />
-                <stop offset="100%" stopColor="#FBC02D" />
-              </linearGradient>
             </defs>
-            
-            {/* Background Circle */}
+
+            {/* Background */}
             <path d="M 95,58 A 45 45 0 0 1 5,58" fill="#FDE4B4" stroke="none" />
             <path d="M 5,58 L 95,58" fill="#FDE4B4" stroke="none" />
-            
-            {/* Truck */}
-            <path d="M 85,85 H 15 L 12,75 H 88 L 85,85 Z" fill="#FFFFFF" stroke="#4E342E" />
-            <path d="M 12,75 L 18,55 H 70 L 88,75" fill="url(#truckBody)" stroke="#4E342E" />
-            <path d="M 20,65 H 35 V 58 H 20 Z" fill="#FFFFFF" stroke="#4E342E" />
-            <path d="M 70,55 L 80,45 H 85 L 88,55 H 70" fill="#FFFFFF" stroke="#4E342E" />
-            <path d="M 72,55 V 65 H 86 V 55" fill="#FFFFFF" stroke="#4E342E" />
-            <path d="M 74,60 H 78" stroke="#4E342E" />
-            <path d="M 80,60 H 84" stroke="#4E342E" />
+
+            {/* Cart Body */}
+            <path d="M 10 70 H 80 L 85 85 H 5 L 10 70 Z" fill="#F57C00" stroke="#4E342E" />
+            <path d="M 10 70 L 15 60 H 75 L 80 70" fill="#FB8C00" stroke="#4E342E" />
+            <path d="M 15 60 V 55 H 75 V 60" fill="#FFFFFF" stroke="#4E342E" />
+            <rect x="12" y="72" width="68" height="3" fill="#4E342E" stroke="none" />
             
             {/* Awning */}
-            <path d="M 19,55 H 45 L 43,50 H 21 Z" fill="#D32F2F" stroke="#4E342E" />
-            <path d="M 21 50 C 21 48, 24 48, 24 50" stroke="#FFFFFF" fill="none" />
-            <path d="M 27 50 C 27 48, 30 48, 30 50" stroke="#FFFFFF" fill="none" />
-            <path d="M 33 50 C 33 48, 36 48, 36 50" stroke="#FFFFFF" fill="none" />
-            <path d="M 39 50 C 39 48, 42 48, 42 50" stroke="#FFFFFF" fill="none" />
-            
-            {/* Grill */}
-            <path d="M 89,75 L 86,65 H 92 L 89,75 Z" fill="#BDBDBD" stroke="#4E342E" />
-            <path d="M 87,67 V 73" stroke="#4E342E" />
-            <path d="M 89,67 V 73" stroke="#4E342E" />
-            <path d="M 91,67 V 73" stroke="#4E342E" />
-            
+            <path d="M 12 35 H 78 V 40 H 12 Z" fill="url(#awning)" stroke="#4E342E" />
+            <path d="M 12 40 L 10 45 H 80 L 78 40 Z" fill="#FFFFFF" stroke="#4E342E" />
+            <path d="M 20 45 V 55" stroke="#4E342E" />
+            <path d="M 70 45 V 55" stroke="#4E342E" />
+            <path d="M 45 45 V 55" stroke="#4E342E" />
+
             {/* Wheels */}
-            <circle cx="28" cy="85" r="5" fill="#FFFFFF" stroke="#4E342E" />
-            <circle cx="28" cy="85" r="2" fill="#4E342E" stroke="none" />
-            <circle cx="72" cy="85" r="5" fill="#FFFFFF" stroke="#4E342E" />
-            <circle cx="72" cy="85" r="2" fill="#4E342E" stroke="none" />
+            <g transform="translate(0, 3)">
+                <circle cx="25" cy="85" r="7" fill="#FFFFFF" stroke="#4E342E" />
+                <circle cx="25" cy="85" r="2" fill="#4E342E" />
+                <path d="M 25 78 V 92" stroke="#4E342E" strokeWidth="1" />
+                <path d="M 18 85 H 32" stroke="#4E342E" strokeWidth="1" />
+                <path d="M 20 79.5 L 30 90.5" stroke="#4E342E" strokeWidth="1" />
+                <path d="M 20 90.5 L 30 79.5" stroke="#4E342E" strokeWidth="1" />
 
-            {/* Headlights */}
-            <circle cx="90" cy="80" r="2" fill="#FFEB3B" stroke="#4E342E" />
-
-            {/* Ground lines */}
-            <path d="M 5,90 H 20" stroke="#4E342E" />
-            <path d="M 80,90 H 95" stroke="#4E342E" />
-            <path d="M 35,90 H 65" stroke="#4E342E" />
-
-            {/* Veggie Plate */}
-            <g transform="translate(0, -5)">
-              {/* Plate */}
-              <path d="M 25 45 Q 50 55 75 45 L 70 50 Q 50 60 30 50 Z" fill="#FFFFFF" stroke="#4E342E" />
-              {/* Veggies */}
-              <circle cx="40" cy="35" r="6" fill="url(#veggieRed)" stroke="#4E342E" />
-              <ellipse cx="55" cy="35" rx="7" ry="5" fill="url(#veggieGreen)" stroke="#4E342E" transform="rotate(20 55 35)" />
-              <path d="M 60 40 C 65 35, 70 40, 65 45" fill="url(#veggieYellow)" stroke="#4E342E" />
-               <path d="M 35 42 C 38 38, 42 38, 45 42" fill="none" stroke="url(#veggieGreen)" strokeWidth="2.5" strokeLinecap="round"/>
-               <path d="M 50 44 C 53 40, 57 40, 60 44" fill="none" stroke="#E53935" strokeWidth="2" strokeLinecap="round"/>
+                <circle cx="65" cy="85" r="7" fill="#FFFFFF" stroke="#4E342E" />
+                <circle cx="65" cy="85" r="2" fill="#4E342E" />
+                <path d="M 65 78 V 92" stroke="#4E342E" strokeWidth="1" />
+                <path d="M 58 85 H 72" stroke="#4E342E" strokeWidth="1" />
+                <path d="M 60 79.5 L 70 90.5" stroke="#4E342E" strokeWidth="1" />
+                <path d="M 60 90.5 L 70 79.5" stroke="#4E342E" strokeWidth="1" />
             </g>
+
+            {/* Handle */}
+            <path d="M 80 70 L 90 65 L 90 70 L 85 75 Z" fill="#FB8C00" stroke="#4E342E"/>
+            <path d="M 90 65 H 95 V 60 H 90" fill="#4E342E" />
+
+            {/* Veggies */}
+            <g transform="translate(5, -2)">
+              <circle cx="25" cy="55" r="5" fill="url(#veggieRed)" stroke="#4E342E" />
+              <circle cx="35" cy="55" r="5" fill="url(#veggieRed)" stroke="#4E342E" />
+              <path d="M 45 50 C 50 50, 50 58, 55 58" stroke="url(#veggieGreen)" strokeWidth="3" strokeLinecap="round" />
+              <path d="M 50 52 C 55 52, 55 60, 60 60" stroke="url(#veggieGreen)" strokeWidth="3" strokeLinecap="round" />
+            </g>
+
+             {/* Ground */}
+            <path d="M 2, 95 H 98" stroke="#4E342E" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
       </div>
-      <div className="text-center mt-[-10px]">
+      <div className="text-center mt-[-20px]">
          <h1 className="text-2xl font-bold font-headline" style={{ color: '#4E342E' }}>ANNA DAATA</h1>
          <p className="text-xs font-semibold" style={{ color: '#FB8C00' }}>SAHI DAAM, SAHI SAAMAAN</p>
       </div>
