@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -130,7 +131,7 @@ export default function ListingsPage() {
 function ListingFormDialog({ isOpen, setIsOpen, product, onSave }: { isOpen: boolean, setIsOpen: (open: boolean) => void, product: Product | null, onSave: (product: Omit<Product, 'id' | 'supplierName' | 'supplierId' | 'supplierRating'>) => void }) {
   const [formData, setFormData] = useState(product || emptyProduct);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFormData(product ? { ...product } : { ...emptyProduct });
   }, [product, isOpen]);
 
