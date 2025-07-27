@@ -1,22 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useProfile } from "@/hooks/use-profile";
 
 export default function VendorProfilePage() {
   const { toast } = useToast();
+  const { vendorProfile, setVendorProfile } = useProfile();
   
-  const [stallName, setStallName] = useState("Mumbai Chaat House");
-  const [ownerName, setOwnerName] = useState("Priya Sharma");
-  const [phone, setPhone] = useState("+91 87654 32109");
-  const [location, setLocation] = useState("Juhu Beach, Mumbai");
-  const [foodType, setFoodType] = useState("Chaat, Vada Pav, Dosa");
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setVendorProfile(prev => ({...prev, [id]: value}));
+  };
 
   const handleSaveChanges = () => {
+    // The state is already updated on change, and the hook persists it.
+    // This button just provides user feedback.
     toast({
       title: "Profile Updated",
       description: "Your changes have been saved successfully.",
@@ -31,24 +33,24 @@ export default function VendorProfilePage() {
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="stall-name">Stall Name</Label>
-          <Input id="stall-name" value={stallName} onChange={(e) => setStallName(e.target.value)} />
+          <Label htmlFor="stallName">Stall Name</Label>
+          <Input id="stallName" value={vendorProfile.stallName} onChange={handleInputChange} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="owner-name">Owner Name</Label>
-          <Input id="owner-name" value={ownerName} onChange={(e) => setOwnerName(e.target.value)} />
+          <Label htmlFor="name">Owner Name</Label>
+          <Input id="name" value={vendorProfile.name} onChange={handleInputChange} />
+        </div>
+         <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input id="email" type="email" value={vendorProfile.email} onChange={handleInputChange} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
-          <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          <Label htmlFor="location">Location</Label>
+          <Input id="location" value={vendorProfile.location} onChange={handleInputChange} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="address">Location</Label>
-          <Input id="address" value={location} onChange={(e) => setLocation(e.target.value)} />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="food-type">Food Type / Cuisine</Label>
-          <Input id="food-type" value={foodType} onChange={(e) => setFoodType(e.target.value)} />
+          <Label htmlFor="foodType">Food Type / Cuisine</Label>
+          <Input id="foodType" value={vendorProfile.foodType} onChange={handleInputChange} />
         </div>
         <Button onClick={handleSaveChanges}>Save Changes</Button>
       </CardContent>

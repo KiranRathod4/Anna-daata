@@ -4,18 +4,20 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Lightbulb, Loader2, ShoppingCart } from "lucide-react";
+import { Lightbulb, ShoppingCart } from "lucide-react";
 import { demandPredictionAgent, DemandPredictionOutput } from '@/ai/flows/demand-prediction-agent';
 import { useToast } from "@/hooks/use-toast";
-import { mockDemandPredictionInput, allProducts, Product } from '@/lib/data';
+import { mockDemandPredictionInput } from '@/lib/data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useCart } from '@/hooks/use-cart';
+import { useListings } from '@/hooks/use-listings';
 
 export default function ReorderPage() {
   const [prediction, setPrediction] = useState<DemandPredictionOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const { addToCart } = useCart();
+  const { products: allProducts } = useListings();
 
 
   const handlePrediction = async () => {
@@ -39,7 +41,7 @@ export default function ReorderPage() {
   const handleAddToCart = (itemName: string, quantity: number) => {
     const product = allProducts.find(p => p.name === itemName);
     if (product) {
-      addToCart({ ...product, quantity });
+      addToCart(product, quantity);
       toast({
         title: "Added to Cart",
         description: `${quantity} ${product.unit}(s) of ${itemName} has been added to your cart for reordering.`,

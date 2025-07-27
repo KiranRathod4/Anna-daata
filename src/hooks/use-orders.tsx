@@ -1,17 +1,19 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import type { VendorOrder, SupplierOrder, Product } from '@/lib/types';
 import { allVendorOrders as initialVendorOrders, allSupplierOrders as initialSupplierOrders } from '@/lib/data';
+import { useLocalStorage } from './use-local-storage';
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   quantity: number;
 }
 
 interface OrderContextType {
-  allVendorOrders: VendorOrder[];
-  allSupplierOrders: SupplierOrder[];
+  vendorOrders: VendorOrder[];
+  supplierOrders: SupplierOrder[];
   addOrder: (cartItems: CartItem[], total: number) => void;
+  updateSupplierOrderStatus: (orderId: string, status: SupplierOrder['status']) => void;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -25,11 +27,10 @@ export function useOrders() {
 }
 
 export function OrderProvider({ children }: { children: ReactNode }) {
-  const [allVendorOrders, setAllVendorOrders] = useState<VendorOrder[]>(initialVendorOrders);
-  const [allSupplierOrders, setAllSupplierOrders] = useState<SupplierOrder[]>(initialSupplierOrders);
+  const [vendorOrders, setVendorOrders] = useLocalStorage<VendorOrder[]>('vendorOrders', initialVendorOrders);
+  const [supplierOrders, setSupplierOrders] = useLocalStorage<SupplierOrder[]>('supplierOrders', initialSupplierOrders);
 
-  const addOrder = (cartItems: CartItem[], total: number) => {
-    const newOrderId = `#AD${Math.floor(Math.random() * 1000) + 3026}`;
+  const addOrder = useCallback((cartItems: CartItem[], total: number) => {
     const newOrderDate = new Date().toISOString();
 
     // Group items by supplier
@@ -49,8 +50,9 @@ export function OrderProvider({ children }: { children: ReactNode }) {
 
 
     // Create new orders for each supplier
-    Object.values(ordersBySupplier).forEach((supplierOrder, index) => {
-      const uniqueOrderId = `${newOrderId}-${index}`;
+    Object.values(ordersBySupplier).forEach((supplierOrder) => {
+      const uniqueOrderId = `#AD${Math.floor(Math.random() * 10000) + 3000}`;
+      
       const newVendorOrder: VendorOrder = {
         id: uniqueOrderId,
         supplierName: supplierOrder.supplierName,
@@ -67,16 +69,22 @@ export function OrderProvider({ children }: { children: ReactNode }) {
         date: newOrderDate,
       };
       
-      setAllVendorOrders(prev => [newVendorOrder, ...prev]);
-      setAllSupplierOrders(prev => [newSupplierOrder, ...prev]);
+      setVendorOrders(prev => [newVendorOrder, ...prev]);
+      setSupplierOrders(prev => [newSupplierOrder, ...prev]);
     });
-  };
+  }, [setVendorOrders, setSupplierOrders]);
+
+  const updateSupplierOrderStatus = useCallback((orderId: string, status: SupplierOrder['status']) => {
+    setSupplierOrders(prev => prev.map(o => o.id === orderId ? {...o, status} : o));
+    setVendorOrders(prev => prev.map(o => o.id === orderId ? {...o, status} : o));
+  }, [setSupplierOrders, setVendorOrders]);
 
 
   const value = {
-    allVendorOrders,
-    allSupplierOrders,
+    vendorOrders,
+    supplierOrders,
     addOrder,
+    updateSupplierOrderStatus,
   };
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;

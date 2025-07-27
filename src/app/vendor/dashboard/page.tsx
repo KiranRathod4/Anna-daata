@@ -5,36 +5,45 @@ import { DemandPredictionCard } from "@/components/vendor/demand-prediction-card
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { vendorStats as initialVendorStats } from "@/lib/data";
 import { ShoppingCart, PackageCheck, Star, Clock } from "lucide-react";
 import { useOrders } from "@/hooks/use-orders";
 import { useEffect, useState } from "react";
 import { VendorOrder } from "@/lib/types";
+import { useProfile } from "@/hooks/use-profile";
 
 export default function VendorDashboard() {
-  const { allVendorOrders } = useOrders();
-  const [vendorStats, setVendorStats] = useState(initialVendorStats);
+  const { vendorOrders } = useOrders();
+  const { vendorProfile } = useProfile();
+  
+  const [vendorStats, setVendorStats] = useState({
+    totalOrders: 0,
+    completedOrders: 0,
+    favoriteSupplier: 'N/A',
+    lastOrderDays: 0,
+  });
   const [recentOrders, setRecentOrders] = useState<VendorOrder[]>([]);
 
   useEffect(() => {
     // Update stats based on orders
-    const totalOrders = allVendorOrders.length;
-    const completedOrders = allVendorOrders.filter(o => o.status === 'Delivered').length;
-    const lastOrderDate = totalOrders > 0 ? new Date(allVendorOrders[0].date!) : new Date();
-    const lastOrderDays = Math.floor((new Date().getTime() - lastOrderDate.getTime()) / (1000 * 3600 * 24));
+    const totalOrders = vendorOrders.length;
+    const completedOrders = vendorOrders.filter(o => o.status === 'Delivered').length;
+    const lastOrderDate = totalOrders > 0 && vendorOrders[0].date ? new Date(vendorOrders[0].date) : null;
+    const lastOrderDays = lastOrderDate ? Math.floor((new Date().getTime() - lastOrderDate.getTime()) / (1000 * 3600 * 24)) : 0;
     
     // In a real app, favorite supplier would be calculated from order items
-    setVendorStats(prevStats => ({
-      ...prevStats,
+    const favoriteSupplier = totalOrders > 0 ? vendorOrders[0].supplierName : 'N/A';
+    
+    setVendorStats({
       totalOrders,
       completedOrders,
+      favoriteSupplier,
       lastOrderDays,
-    }));
+    });
     
     // Update recent orders list
-    setRecentOrders(allVendorOrders.slice(0, 3));
+    setRecentOrders(vendorOrders.slice(0, 3));
 
-  }, [allVendorOrders]);
+  }, [vendorOrders]);
 
   return (
     <div className="flex flex-col gap-8">

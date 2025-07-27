@@ -19,6 +19,7 @@ export interface Supplier extends User {
   rating: number;
   reviewCount: number;
   isTrusted: boolean;
+  specialties?: string;
 }
 
 export interface Product {
@@ -75,4 +76,11 @@ export interface Review {
   comment: string;
   avatarUrl?: string;
   aiHint?: string;
+}
+
+
+export type Settings = {
+  theme: 'light' | 'dark' | 'system';
+  emailNotifications: boolean;
+  smsAlerts: boolean;
 }

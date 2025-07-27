@@ -1,68 +1,29 @@
-import type { Product, Order, Review, Supplier, Vendor, VendorOrder, SupplierOrder } from './types';
+import type { Product, Review, VendorOrder, SupplierOrder } from './types';
 import type { DynamicDealsAlertsInput } from '@/ai/flows/dynamic-deals-alerts';
 import type { DemandPredictionInput } from '@/ai/flows/demand-prediction-agent';
 
-// Mock Data for Anna Daata App
-
-// Suppliers
-export const suppliers: Supplier[] = [
-  { id: 'sup1', name: 'Fresh Veggies Co.', rating: 4.8, reviewCount: 120, isTrusted: true },
-  { id: 'sup2', name: 'Amul Dairy Distributors', rating: 4.5, reviewCount: 85, isTrusted: true },
-  { id: 'sup3', name: 'Kerala Spice Hub', rating: 4.9, reviewCount: 250, isTrusted: true },
-  { id: 'sup4', name: 'Delhi Flour & Grains', rating: 4.2, reviewCount: 45, isTrusted: false },
-];
+// Mock Data for Anna Daata App - This data is now used as the INITIAL state for localStorage.
 
 // All Products from various suppliers for browse page
 export const allProducts: Product[] = [
-  { id: 'prod1', name: 'Fresh Tomatoes', price: 40, unit: 'kg', inStock: true, stock: 100, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'fresh tomatoes' },
-  { id: 'prod2', name: 'Amul Gold Milk', price: 66, unit: 'liter', inStock: true, stock: 200, supplierId: 'sup2', supplierName: 'Amul Dairy Distributors', supplierRating: 4.5, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'milk carton' },
-  { id: 'prod3', name: 'Turmeric Powder', price: 250, unit: 'kg', inStock: true, stock: 50, supplierId: 'sup3', supplierName: 'Kerala Spice Hub', supplierRating: 4.9, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'turmeric powder' },
-  { id: 'prod4', name: 'Onions', price: 30, unit: 'kg', inStock: true, stock: 150, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'fresh onions' },
-  { id: 'prod5', name: 'Whole Wheat Atta', price: 45, unit: 'kg', inStock: false, stock: 0, supplierId: 'sup4', supplierName: 'Delhi Flour & Grains', supplierRating: 4.2, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'wheat flour' },
-  { id: 'prod6', name: 'Paneer', price: 400, unit: 'kg', inStock: true, stock: 30, supplierId: 'sup2', supplierName: 'Amul Dairy Distributors', supplierRating: 4.5, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'paneer block' },
-  { id: 'prod7', name: 'Red Chilli Powder', price: 300, unit: 'kg', inStock: true, stock: 80, supplierId: 'sup3', supplierName: 'Kerala Spice Hub', supplierRating: 4.9, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'chilli powder' },
-  { id: 'prod8', name: 'Potatoes', price: 25, unit: 'kg', inStock: true, stock: 300, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://placehold.co/400x250.png', aiHint: 'fresh potatoes' },
-];
-
-// Specific Supplier's products
-export const supplierProducts = allProducts.filter(p => p.supplierId === 'sup1');
-
-// Vendor Dashboard Data
-export const vendorStats = {
-  totalOrders: 25,
-  completedOrders: 23,
-  favoriteSupplier: 'Fresh Veggies Co.',
-  lastOrderDays: 3,
-};
-
-export const vendorRecentOrders: VendorOrder[] = [
-    { id: '#AD3025', supplierName: 'Fresh Veggies Co.', total: 1250.00, status: 'Delivered' },
-    { id: '#AD3024', supplierName: 'Amul Dairy Distributors', total: 850.50, status: 'Out for Delivery' },
-    { id: '#AD3023', supplierName: 'Kerala Spice Hub', total: 2500.00, status: 'Confirmed' },
+  { id: 'prod1', name: 'Fresh Tomatoes', price: 40, unit: 'kg', inStock: true, stock: 100, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://storage.googleapis.com/aif-us-build-dev-001/c6c3a3af-f698-4c12-9c3f-4e0e5ab1571d.png', aiHint: 'fresh tomatoes' },
+  { id: 'prod2', name: 'Amul Gold Milk', price: 66, unit: 'liter', inStock: true, stock: 200, supplierId: 'sup2', supplierName: 'Amul Dairy Distributors', supplierRating: 4.5, imageUrl: 'https://storage.googleapis.com/aif-us-build-dev-001/a572a17f-1d44-4860-b593-35f11812a640.png', aiHint: 'milk carton' },
+  { id: 'prod3', name: 'Turmeric Powder', price: 250, unit: 'kg', inStock: true, stock: 50, supplierId: 'sup3', supplierName: 'Kerala Spice Hub', supplierRating: 4.9, imageUrl: 'https://storage.googleapis.com/aif-us-build-dev-001/0e1b6e49-366a-4863-9556-3a7888741b8c.png', aiHint: 'turmeric powder' },
+  { id: 'prod4', name: 'Onions', price: 30, unit: 'kg', inStock: true, stock: 150, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://storage.googleapis.com/aif-us-build-dev-001/be104618-977d-410a-864a-e60f78ce6c81.png', aiHint: 'fresh onions' },
+  { id: 'prod5', name: 'Whole Wheat Atta', price: 45, unit: 'kg', inStock: false, stock: 0, supplierId: 'sup4', supplierName: 'Delhi Flour & Grains', supplierRating: 4.2, imageUrl: 'https://storage.googleapis.com/aif-us-build-dev-001/f9e8a71a-4f24-4f47-8b09-5d2d47783b9e.png', aiHint: 'wheat flour' },
+  { id: 'prod6', name: 'Paneer', price: 400, unit: 'kg', inStock: true, stock: 30, supplierId: 'sup2', supplierName: 'Amul Dairy Distributors', supplierRating: 4.5, imageUrl: 'https://storage.googleapis.com/aif-us-build-dev-001/1d713a68-7a56-4c4f-9a71-2675685d0d82.png', aiHint: 'paneer block' },
+  { id: 'prod7', name: 'Red Chilli Powder', price: 300, unit: 'kg', inStock: true, stock: 80, supplierId: 'sup3', supplierName: 'Kerala Spice Hub', supplierRating: 4.9, imageUrl: 'https://storage.googleapis.com/aif-us-build-dev-001/c81e3e7f-8e43-4a16-9e9b-4a5e62f0a1e3.png', aiHint: 'chilli powder' },
+  { id: 'prod8', name: 'Potatoes', price: 25, unit: 'kg', inStock: true, stock: 300, supplierId: 'sup1', supplierName: 'Fresh Veggies Co.', supplierRating: 4.8, imageUrl: 'https://storage.googleapis.com/aif-us-build-dev-001/4f2b9b8b-9e4a-4b9e-9b0d-5a8b9f3c9e6d.png', aiHint: 'fresh potatoes' },
 ];
 
 export const allVendorOrders: VendorOrder[] = [
-    ...vendorRecentOrders,
+    { id: '#AD3025', supplierName: 'Fresh Veggies Co.', total: 1250.00, status: 'Delivered', date: '2024-05-18' },
+    { id: '#AD3024', supplierName: 'Amul Dairy Distributors', total: 850.50, status: 'Out for Delivery', date: '2024-05-20' },
+    { id: '#AD3023', supplierName: 'Kerala Spice Hub', total: 2500.00, status: 'Confirmed', date: '2024-05-21' },
     { id: '#AD3022', supplierName: 'Fresh Veggies Co.', total: 980.00, status: 'Delivered', date: '2024-05-15' },
     { id: '#AD3021', supplierName: 'Delhi Flour & Grains', total: 600.00, status: 'Cancelled', date: '2024-05-14' },
     { id: '#AD3020', supplierName: 'Amul Dairy Distributors', total: 1100.00, status: 'Delivered', date: '2024-05-12' },
     { id: '#AD3019', supplierName: 'Fresh Veggies Co.', total: 1500.00, status: 'Delivered', date: '2024-05-10' },
-];
-
-
-// Supplier Dashboard Data
-export const supplierStats = {
-    totalRevenue: 45231.89,
-    newOrders: 132,
-    reputation: 4.8,
-    reviewCount: 120,
-    topSellingItem: 'Fresh Tomatoes',
-};
-
-export const recentOrders: {id: string; vendorName: string; vendorId: string; amount: number; status: 'Pending' | 'Delivered' | 'Out for Delivery'}[] = [
-    { id: '#V2051', vendorName: 'Mumbai Chaat House', vendorId: 'priya@example.com', amount: 750.00, status: 'Pending' },
-    { id: '#V2050', vendorName: 'Delhi Dosa Point', vendorId: 'sanjay@example.com', amount: 1500.00, status: 'Delivered' },
-    { id: '#V2049', vendorName: 'Kolkata Rolls', vendorId: 'anita@example.com', amount: 350.50, status: 'Out for Delivery' },
 ];
 
 export const allSupplierOrders: SupplierOrder[] = [

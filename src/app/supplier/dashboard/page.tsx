@@ -4,31 +4,44 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { CircleDollarSign, Package, Star, TrendingUp } from "lucide-react";
-import { recentReviews, supplierStats } from "@/lib/data";
+import { recentReviews } from "@/lib/data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
 import { useOrders } from "@/hooks/use-orders";
 import { useEffect, useState } from "react";
+import { useProfile } from "@/hooks/use-profile";
+import { useListings } from "@/hooks/use-listings";
 
 export default function SupplierDashboard() {
-  const { allSupplierOrders } = useOrders();
-  const [stats, setStats] = useState(supplierStats);
+  const { supplierOrders } = useOrders();
+  const { supplierProfile } = useProfile();
+  const { products } = useListings();
+
+  const [stats, setStats] = useState({
+    totalRevenue: 0,
+    newOrders: 0,
+    reputation: 4.8,
+    reviewCount: 120,
+    topSellingItem: 'N/A',
+  });
 
   useEffect(() => {
-    const newRevenue = allSupplierOrders.reduce((acc, order) => acc + order.total, 0);
-    const newOrdersCount = allSupplierOrders.length;
+    const totalRevenue = supplierOrders.reduce((acc, order) => acc + order.total, 0);
+    const newOrders = supplierOrders.length;
     
-    // In a real app, top selling item would be calculated from order items
-    // Here we'll just update what we can
+    // In a real app, top selling item would be calculated from order items.
+    // For now, we'll just show the first product if available.
+    const topSellingItem = products.length > 0 ? products[0].name : 'N/A';
+    
     setStats(prevStats => ({
       ...prevStats,
-      totalRevenue: newRevenue,
-      newOrders: newOrdersCount,
+      totalRevenue: totalRevenue,
+      newOrders: newOrders,
+      topSellingItem: topSellingItem,
     }));
 
-  }, [allSupplierOrders]);
+  }, [supplierOrders, products]);
 
-  const recentOrders = allSupplierOrders.slice(0, 3);
+  const recentOrders = supplierOrders.slice(0, 3);
 
   return (
     <div className="flex flex-col gap-8">
@@ -59,8 +72,8 @@ export default function SupplierDashboard() {
             <Star className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.reputation.toFixed(1)}/5.0</div>
-            <p className="text-xs text-muted-foreground">Based on {stats.reviewCount} reviews</p>
+            <div className="text-2xl font-bold">{supplierProfile.rating.toFixed(1)}/5.0</div>
+            <p className="text-xs text-muted-foreground">Based on {supplierProfile.reviewCount} reviews</p>
           </CardContent>
         </Card>
         <Card>
@@ -69,7 +82,7 @@ export default function SupplierDashboard() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.topSellingItem}</div>
+            <div className="text-2xl font-bold truncate">{stats.topSellingItem}</div>
             <p className="text-xs text-muted-foreground">Most popular this month</p>
           </CardContent>
         </Card>

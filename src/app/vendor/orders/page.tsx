@@ -11,12 +11,12 @@ import { useOrders } from "@/hooks/use-orders";
 
 export default function VendorOrdersPage() {
   const { toast } = useToast();
-  const { allVendorOrders } = useOrders();
+  const { vendorOrders } = useOrders();
 
   const handleAction = (action: string, orderId: string) => {
     toast({
       title: `Action: ${action}`,
-      description: `Action '${action}' was triggered for order ${orderId}.`,
+      description: `Action '${action}' was triggered for order ${orderId}. This is a placeholder.`,
     });
   };
 
@@ -41,11 +41,11 @@ export default function VendorOrdersPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {allVendorOrders.map((order) => (
+            {vendorOrders.map((order) => (
               <TableRow key={order.id}>
                 <TableCell className="font-medium">{order.id}</TableCell>
                 <TableCell>{order.supplierName}</TableCell>
-                <TableCell>{new Date(order.date!).toLocaleDateString()}</TableCell>
+                <TableCell>{order.date ? new Date(order.date).toLocaleDateString() : 'N/A'}</TableCell>
                 <TableCell>
                   <Badge variant={order.status === 'Delivered' ? 'default' : 'secondary'} 
                     className={

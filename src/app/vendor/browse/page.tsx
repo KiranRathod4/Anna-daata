@@ -6,12 +6,15 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Star, Search, ShoppingCart } from "lucide-react";
-import { allProducts, Product } from "@/lib/data";
+import { useListings } from "@/hooks/use-listings";
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
+import type { Product } from '@/lib/types';
+
 
 export default function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const { products: allProducts } = useListings();
   const { toast } = useToast();
   const { addToCart } = useCart();
 

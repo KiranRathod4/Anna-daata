@@ -4,6 +4,9 @@ import { Logo } from '@/components/logo';
 import { UserNav } from '@/components/user-nav';
 import { DashboardHeader } from '@/components/dashboard-header';
 import { OrderProvider } from '@/hooks/use-orders';
+import { ProfileProvider } from '@/hooks/use-profile';
+import { SettingsProvider } from '@/hooks/use-settings';
+import { ListingsProvider } from '@/hooks/use-listings';
 
 const navItems = [
   { href: "/supplier/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -19,41 +22,47 @@ export default function SupplierLayout({
   children: React.ReactNode;
 }) {
   return (
-    <OrderProvider>
-      <SidebarProvider>
-        <Sidebar>
-          <SidebarHeader>
-            <div className="flex items-center justify-center p-2 group-data-[collapsible=icon]:hidden">
-              <Logo />
-            </div>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton href={item.href} tooltip={item.label}>
-                    <item.icon />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarContent>
-        </Sidebar>
-        <SidebarInset className="bg-background">
-          <DashboardHeader>
-            <div className="md:hidden">
-              <SidebarTrigger />
-            </div>
-            <div className="ml-auto">
-              <UserNav />
-            </div>
-          </DashboardHeader>
-          <main className="p-4 md:p-8">
-            {children}
-          </main>
-        </SidebarInset>
-      </SidebarProvider>
-    </OrderProvider>
+    <SettingsProvider>
+      <ProfileProvider>
+        <OrderProvider>
+          <ListingsProvider>
+            <SidebarProvider>
+              <Sidebar>
+                <SidebarHeader>
+                  <div className="flex items-center justify-center p-2 group-data-[collapsible=icon]:hidden">
+                    <Logo />
+                  </div>
+                </SidebarHeader>
+                <SidebarContent>
+                  <SidebarMenu>
+                    {navItems.map((item) => (
+                      <SidebarMenuItem key={item.href}>
+                        <SidebarMenuButton href={item.href} tooltip={item.label}>
+                          <item.icon />
+                          <span>{item.label}</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarContent>
+              </Sidebar>
+              <SidebarInset className="bg-background">
+                <DashboardHeader>
+                  <div className="md:hidden">
+                    <SidebarTrigger />
+                  </div>
+                  <div className="ml-auto">
+                    <UserNav />
+                  </div>
+                </DashboardHeader>
+                <main className="p-4 md:p-8">
+                  {children}
+                </main>
+              </SidebarInset>
+            </SidebarProvider>
+          </ListingsProvider>
+        </OrderProvider>
+      </ProfileProvider>
+    </SettingsProvider>
   );
 }
