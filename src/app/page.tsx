@@ -57,17 +57,17 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                     <div className="flex flex-col items-center text-center gap-4">
-                        <Image src="https://placehold.co/400x400.png" data-ai-hint="fresh vegetables market" alt="Fresh ingredients" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
+                        <Image src="https://storage.googleapis.com/aif-us-build-dev-001/91104391-4545-4537-81e0-c97b819f796a.png" data-ai-hint="fresh vegetables market" alt="Fresh ingredients" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
                         <h3 className="text-xl font-headline font-semibold">The Finest Ingredients</h3>
                         <p className="text-muted-foreground">Vendors connect with trusted suppliers for the freshest vegetables, spices, and dairy, forming the foundation of every delicious meal.</p>
                     </div>
                     <div className="flex flex-col items-center text-center gap-4">
-                        <Image src="https://placehold.co/400x400.png" data-ai-hint="street food vendor" alt="Vendor cooking" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
+                        <Image src="https://storage.googleapis.com/aif-us-build-dev-001/8e45b4c9-0218-46d2-9781-a7e8417c8003.png" data-ai-hint="street food vendor" alt="Vendor cooking" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
                         <h3 className="text-xl font-headline font-semibold">The Passionate Vendor</h3>
                         <p className="text-muted-foreground">With a reliable supply chain and AI-powered inventory management, our vendors focus on what they do best: creating culinary magic.</p>
                     </div>
                      <div className="flex flex-col items-center text-center gap-4">
-                        <Image src="https://placehold.co/400x400.png" data-ai-hint="person eating street food" alt="Happy customer" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
+                        <Image src="https://storage.googleapis.com/aif-us-build-dev-001/678e1c6d-9799-4c17-90d0-b2c6c1d07c42.png" data-ai-hint="person eating street food" alt="Happy customer" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
                         <h3 className="text-xl font-headline font-semibold">The Delighted Customer</h3>
                         <p className="text-muted-foreground">The result? A taste that brings joy. Every bite is a testament to the quality and care that started with Anna Daata.</p>
                     </div>
