@@ -26,7 +26,7 @@ export default function Home() {
         <section className="relative w-full py-20 md:py-32 lg:py-40 bg-card overflow-hidden">
            <div className="absolute inset-0 bg-primary/10 opacity-50"></div>
            <Image
-            src="https://storage.googleapis.com/aif-us-build-dev-001/5a539097-f814-4328-9a99-92c28646b9a8.png"
+            src="https://images.unsplash.com/photo-1596789382413-41569507f4a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxpbmRpYW4lMjBzdHJlZXQlMjBmb29kfGVufDB8fHx8MTc1MzYyOTA4NHww&ixlib=rb-4.1.0&q=80&w=1080"
             alt="A female street food vendor serves fresh vegetables to a customer."
             data-ai-hint="vegetable stall"
             fill
@@ -63,12 +63,12 @@ export default function Home() {
                         <p className="text-muted-foreground">Vendors connect with trusted suppliers for the freshest vegetables, spices, and dairy, forming the foundation of every delicious meal.</p>
                     </div>
                     <div className="flex flex-col items-center text-center gap-4">
-                        <Image src="https://images.unsplash.com/photo-1664382953403-fc1ac77073a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpbnZlbnRvcnklMjBtYW5hZ2VtZW50fGVufDB8fHx8MTc1MzYzMjA1NHww&ixlib=rb-4.1.0&q=80&w=1080" data-ai-hint="street food vendor" alt="Vendor cooking" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
+                        <Image src="https://images.unsplash.com/photo-1604111782161-93144d8525e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHJlZXQlMjBmb29kJTIwdmVuZG9yfGVufDB8fHx8MTc1MzYzMjA5MXww&ixlib=rb-4.1.0&q=80&w=1080" data-ai-hint="street food vendor" alt="Vendor cooking" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
                         <h3 className="text-xl font-headline font-semibold">The Passionate Vendor</h3>
                         <p className="text-muted-foreground">With a reliable supply chain and AI-powered inventory management, our vendors focus on what they do best: creating culinary magic.</p>
                     </div>
                      <div className="flex flex-col items-center text-center gap-4">
-                        <Image src="https://storage.googleapis.com/aif-us-build-dev-001/678e1c6d-9799-4c17-90d0-b2c6c1d07c42.png" data-ai-hint="person eating street food" alt="Happy customer" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
+                        <Image src="https://images.unsplash.com/photo-1705504613777-0724b5e4ef1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8ZGVsaWdodGVkJTIwY3VzdG9tZXIlMjBpbWFnZXxlbnwwfHx8fDE3NTM2MzIxMTR8MA&ixlib=rb-4.1.0&q=80&w=1080" data-ai-hint="person eating street food" alt="Happy customer" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
                         <h3 className="text-xl font-headline font-semibold">The Delighted Customer</h3>
                         <p className="text-muted-foreground">The result? A taste that brings joy. Every bite is a testament to the quality and care that started with Anna Daata.</p>
                     </div>
@@ -132,5 +132,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
