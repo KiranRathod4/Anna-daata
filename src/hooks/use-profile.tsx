@@ -1,9 +1,11 @@
 
 "use client";
 
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import type { Vendor, Supplier } from '@/lib/types';
 import { useLocalStorage } from './use-local-storage';
+import { auth } from '@/lib/firebase';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
 const initialVendorProfile: Vendor = {
   id: 'vendor123',
@@ -48,6 +50,37 @@ export function useProfile() {
 export function ProfileProvider({ children }: { children: React.ReactNode }) {
   const [vendorProfile, setVendorProfile] = useLocalStorage<Vendor>('vendorProfile', initialVendorProfile);
   const [supplierProfile, setSupplierProfile] = useLocalStorage<Supplier>('supplierProfile', initialSupplierProfile);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+      if (user && user.email) {
+        // User is signed in, update both profiles with the auth email.
+        // Check if the email is different to prevent unnecessary updates.
+        if (vendorProfile.email !== user.email) {
+            setVendorProfile(prev => ({
+                ...initialVendorProfile, // Reset to a clean slate
+                id: user.uid,
+                email: user.email!,
+                name: "New Vendor"
+            }));
+        }
+        if (supplierProfile.email !== user.email) {
+            setSupplierProfile(prev => ({
+                ...initialSupplierProfile, // Reset to a clean slate
+                id: user.uid,
+                email: user.email!,
+                name: "New Supplier"
+            }));
+        }
+      }
+      // If user is null, we can optionally reset to initial state,
+      // but localStorage persistence might be desired across logouts.
+      // For now, we only act when a user logs in.
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []); // Run only once on mount
 
   const value = {
     vendorProfile,
