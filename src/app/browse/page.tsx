@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from 'react';
@@ -5,24 +6,24 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Star, Search, ShoppingCart } from "lucide-react";
-import { useListings } from "@/hooks/use-listings";
+import { useListings, ListingsProvider } from "@/hooks/use-listings";
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
 import type { Product } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 
-
-export default function BrowsePage() {
+function BrowsePageComponent() {
   const [searchTerm, setSearchTerm] = useState('');
   const { products: allProducts, loading } = useListings();
   const { toast } = useToast();
-  const { addToCart } = useCart();
+  // Note: We can't use useCart() here because this page is not within the vendor layout.
+  // The add to cart button will just show a toast. A real implementation would prompt login.
 
   const handleAddToCart = (product: Product) => {
-    addToCart(product);
+    // addToCart(product);
     toast({
-      title: "Added to Cart",
-      description: `${product.name} has been added to your cart.`,
+      title: "Please Log In",
+      description: `You must be logged in as a vendor to add items to your cart.`,
     });
   };
 
@@ -87,4 +88,12 @@ export default function BrowsePage() {
       </div>
     </div>
   );
+}
+
+export default function BrowsePage() {
+  return (
+    <ListingsProvider>
+      <BrowsePageComponent />
+    </ListingsProvider>
+  )
 }

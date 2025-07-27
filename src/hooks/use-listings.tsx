@@ -40,6 +40,9 @@ export function ListingsProvider({ children }: { children: ReactNode }) {
       });
       setProducts(productsData);
       setLoading(false);
+    }, (error) => {
+      console.error("Error fetching listings:", error);
+      setLoading(false);
     });
 
     return () => unsubscribe();
