@@ -63,7 +63,7 @@ export default function Home() {
                         <p className="text-muted-foreground">Vendors connect with trusted suppliers for the freshest vegetables, spices, and dairy, forming the foundation of every delicious meal.</p>
                     </div>
                     <div className="flex flex-col items-center text-center gap-4">
-                        <Image src="https://storage.googleapis.com/aif-us-build-dev-001/8e45b4c9-0218-46d2-9781-a7e8417c8003.png" data-ai-hint="street food vendor" alt="Vendor cooking" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
+                        <Image src="https://images.unsplash.com/photo-1664382953403-fc1ac77073a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpbnZlbnRvcnklMjBtYW5hZ2VtZW50fGVufDB8fHx8MTc1MzYzMjA1NHww&ixlib=rb-4.1.0&q=80&w=1080" data-ai-hint="street food vendor" alt="Vendor cooking" width={400} height={400} className="rounded-lg shadow-lg object-cover" />
                         <h3 className="text-xl font-headline font-semibold">The Passionate Vendor</h3>
                         <p className="text-muted-foreground">With a reliable supply chain and AI-powered inventory management, our vendors focus on what they do best: creating culinary magic.</p>
                     </div>
@@ -132,3 +132,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
