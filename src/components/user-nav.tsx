@@ -17,12 +17,13 @@ import { signOut } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
 import { usePathname, useRouter } from "next/navigation";
 import { useProfile } from "@/hooks/use-profile";
+import { Skeleton } from "./ui/skeleton";
 
 export function UserNav() {
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
-  const { vendorProfile, supplierProfile } = useProfile();
+  const { vendorProfile, supplierProfile, loading } = useProfile();
 
   const isVendor = pathname.startsWith('/vendor');
   const profilePath = isVendor ? '/vendor/profile' : '/supplier/profile';
@@ -32,7 +33,7 @@ export function UserNav() {
   
   const userName = profile.name;
   const userEmail = profile.email;
-  const userFallback = userName.split(' ').map(n => n[0]).join('');
+  const userFallback = userName?.split(' ').map(n => n[0]).join('') || 'U';
 
   // Keeping the avatars role-specific for now as they are not part of the profile data model
   const userAvatarUrl = isVendor 
@@ -56,6 +57,14 @@ export function UserNav() {
       });
     }
   };
+
+  if (loading) {
+    return (
+        <div className="flex items-center space-x-4">
+            <Skeleton className="h-9 w-9 rounded-full" />
+        </div>
+    )
+  }
 
   return (
     <DropdownMenu>
