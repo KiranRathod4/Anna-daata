@@ -30,6 +30,10 @@ export function UserNav() {
   const userName = isVendor ? "Priya Sharma" : "Ravi Kumar";
   const userEmail = isVendor ? "priya@example.com" : "ravi@example.com";
   const userFallback = isVendor ? "PS" : "RK";
+  const userAvatarUrl = isVendor 
+    ? "https://images.unsplash.com/photo-1542940871-21694936245f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpbmRpYW4lMjB3b21hbnxlbnwwfHx8fDE3NTM3MDYwNzF8MA&ixlib=rb-4.1.0&q=80&w=1080" 
+    : "https://images.unsplash.com/photo-1618569977872-3566141b2b46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBtYW58ZW58MHx8fHwxNzUzNzA2MTQxfDA&ixlib=rb-4.1.0&q=80&w=1080";
+  const userAvatarHint = isVendor ? "indian woman" : "indian man";
 
   const handleLogout = async () => {
     try {
@@ -53,7 +57,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-9 w-9">
-            <AvatarImage src="https://placehold.co/100x100.png" alt="@user" />
+            <AvatarImage src={userAvatarUrl} alt={userName} data-ai-hint={userAvatarHint} />
             <AvatarFallback>{userFallback}</AvatarFallback>
           </Avatar>
         </Button>
