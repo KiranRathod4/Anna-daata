@@ -34,7 +34,7 @@ This project is built with a modern, type-safe, and performant technology stack:
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components:** [ShadCN/UI](https://ui.shadcn.com/)
 - **Generative AI:** [Google's Genkit](https://firebase.google.com/docs/genkit)
-- **Backend & Auth:** [Firebase Authentication](https://firebase.google.com/docs/auth)
+- **Backend & Auth:** [Firebase Authentication](https://firebase.google.com/docs/auth) & [Cloud Firestore](https://firebase.google.com/docs/firestore)
 - **Icons:** [Lucide React](https://lucide.dev/)
 
 ## Getting Started
@@ -45,6 +45,7 @@ To get a local copy up and running, follow these simple steps.
 
 - Node.js (v18 or later recommended)
 - npm or yarn
+- A Google account to create a Firebase project.
 
 ### Installation
 
@@ -59,9 +60,14 @@ To get a local copy up and running, follow these simple steps.
     npm install
     ```
 
-3.  **Set up environment variables:**
+3.  **Set up Firebase Project & Environment Variables:**
 
-    Create a `.env` file in the root of the project and add your Firebase project configuration. You can get these keys from your Firebase project console.
+    - Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.
+    - In your project, go to **Project Settings** > **General**.
+    - Under "Your apps", click the **Web** icon (`</>`) to create a new web app.
+    - Give it a nickname (e.g., "Anna Daata Web") and register the app.
+    - Firebase will provide you with a `firebaseConfig` object. Copy these keys.
+    - Create a `.env` file in the root of your project and add the keys from the `firebaseConfig` object.
 
     ```dotenv
     NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
@@ -72,8 +78,52 @@ To get a local copy up and running, follow these simple steps.
     NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
     ```
+    
+4.  **Enable Firebase Authentication:**
+    - In the Firebase Console, go to the **Authentication** section.
+    - Click **Get Started**.
+    - On the "Sign-in method" tab, enable the **Email/Password** provider.
 
-4.  **Run the development servers:**
+5.  **Set up Database (Cloud Firestore):**
+
+    This application uses Cloud Firestore for its database. Note that the current version of the app uses mock data stored in the browser's local storage for demonstration purposes. To use a persistent online database, you'll need to enable and configure Firestore.
+
+    - In the Firebase Console, go to the **Firestore Database** section.
+    - Click **Create database**.
+    - Choose **Start in production mode**. This ensures your data is not publicly accessible by default.
+    - Select a location for your database (choose one close to your users).
+    - Go to the **Rules** tab in the Firestore section and paste the following rules. These rules provide basic security, allowing only authenticated users to read and write their own data.
+
+    ```
+    rules_version = '2';
+    service cloud.firestore {
+      match /databases/{database}/documents {
+        // Allow users to read/write their own profile data
+        match /vendors/{userId} {
+          allow read, write: if request.auth.uid == userId;
+        }
+        match /suppliers/{userId} {
+          allow read, write: if request.auth.uid == userId;
+        }
+
+        // Allow vendors to read product listings
+        match /products/{productId} {
+          allow read: if request.auth != null;
+          // Only authenticated suppliers can create/update their own products
+          allow write: if request.auth != null && get(/databases/$(database)/documents/suppliers/$(request.auth.uid)).data.role == 'supplier';
+        }
+
+        // Allow authenticated users to create orders
+        match /orders/{orderId} {
+           allow create: if request.auth != null;
+           // Allow involved vendor or supplier to read/update the order
+           allow read, update: if request.auth.uid == resource.data.vendorId || request.auth.uid == resource.data.supplierId;
+        }
+      }
+    }
+    ```
+
+6.  **Run the development servers:**
 
     You need to run two separate processes: the Next.js frontend and the Genkit AI server.
 
