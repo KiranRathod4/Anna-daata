@@ -1,7 +1,7 @@
 
 "use client";
 
-import { createContext, useContext, useCallback } from 'react';
+import { createContext, useContext, useCallback, ReactNode } from 'react';
 import type { Product } from '@/lib/types';
 import { allProducts as initialProducts } from '@/lib/data';
 import { useLocalStorage } from './use-local-storage';
@@ -23,7 +23,7 @@ export function useListings() {
   return context;
 }
 
-export function ListingsProvider({ children }: { children: React.ReactNode }) {
+export function ListingsProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useLocalStorage<Product[]>('products', initialProducts);
   
   const addProduct = useCallback((productData: Omit<Product, 'id' | 'supplierId' | 'supplierName' | 'supplierRating'>) => {

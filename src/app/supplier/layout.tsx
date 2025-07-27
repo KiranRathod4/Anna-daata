@@ -3,10 +3,10 @@ import { LayoutDashboard, ClipboardList, Truck, User, Settings } from 'lucide-re
 import { Logo } from '@/components/logo';
 import { UserNav } from '@/components/user-nav';
 import { DashboardHeader } from '@/components/dashboard-header';
-import { OrderProvider } from '@/hooks/use-orders';
-import { ProfileProvider } from '@/hooks/use-profile';
-import { SettingsProvider } from '@/hooks/use-settings';
-import { ListingsProvider } from '@/hooks/use-listings';
+import { OrderProvider } from '@/hooks/use-orders.tsx';
+import { ProfileProvider } from '@/hooks/use-profile.tsx';
+import { SettingsProvider } from '@/hooks/use-settings.tsx';
+import { ListingsProvider } from '@/hooks/use-listings.tsx';
 
 const navItems = [
   { href: "/supplier/dashboard", icon: LayoutDashboard, label: "Dashboard" },

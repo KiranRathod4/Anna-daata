@@ -31,6 +31,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [settings, setSettings] = useLocalStorage<Settings>('appSettings', initialSettings);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
 
