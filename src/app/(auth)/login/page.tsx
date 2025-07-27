@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Suspense, useState } from 'react';
@@ -10,10 +11,12 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Logo } from '@/components/logo';
 import { useRouter } from 'next/navigation';
-import { auth } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import type { Vendor, Supplier } from '@/lib/types';
 
 function AuthComponent() {
   const searchParams = useSearchParams();
@@ -32,16 +35,43 @@ function AuthComponent() {
   const handleSignUp = async () => {
     setIsLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
+      const userCredential = await createUserWithEmailAndPassword(auth, signupEmail, signupPassword);
+      const user = userCredential.user;
+
+      // Create a user profile document in Firestore
+      if (role === 'vendor') {
+        const newVendorProfile: Vendor = {
+          id: user.uid,
+          email: user.email!,
+          name: signupName,
+          role: 'vendor',
+          stallName: `${signupName}'s Stall`,
+          location: 'Not set',
+          foodType: 'Not set',
+        };
+        await setDoc(doc(db, 'vendors', user.uid), newVendorProfile);
+        router.push('/vendor/dashboard');
+      } else {
+        const newSupplierProfile: Supplier = {
+            id: user.uid,
+            email: user.email!,
+            name: signupName,
+            role: 'supplier',
+            businessName: `${signupName}'s Supplies`,
+            address: 'Not set',
+            rating: 0,
+            reviewCount: 0,
+            isTrusted: false,
+        };
+        await setDoc(doc(db, 'suppliers', user.uid), newSupplierProfile);
+        router.push('/supplier/dashboard');
+      }
+      
       toast({
         title: "Account Created",
         description: "You've successfully signed up!",
       });
-      if (role === 'vendor') {
-        router.push('/vendor/dashboard');
-      } else {
-        router.push('/supplier/dashboard');
-      }
+
     } catch (error: any) {
       toast({
         title: "Sign Up Error",
@@ -56,11 +86,22 @@ function AuthComponent() {
   const handleLogin = async () => {
     setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      const user = userCredential.user;
+
+       // Check if the user has the correct role
+       const docRef = doc(db, `${role}s`, user.uid);
+       const docSnap = await getDoc(docRef);
+
+       if (!docSnap.exists()) {
+           throw new Error(`No ${role} account found for this user. Try switching roles.`);
+       }
+
        toast({
         title: "Logged In",
         description: "Welcome back!",
       });
+      
       if (role === 'vendor') {
         router.push('/vendor/dashboard');
       } else {

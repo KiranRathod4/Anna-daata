@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useOrders } from "@/hooks/use-orders";
+import { Timestamp } from 'firebase/firestore';
+
 
 export default function VendorOrdersPage() {
   const { toast } = useToast();
@@ -19,6 +22,16 @@ export default function VendorOrdersPage() {
       description: `Action '${action}' was triggered for order ${orderId}. This is a placeholder.`,
     });
   };
+
+  const formatDate = (timestamp: any) => {
+    if (timestamp instanceof Timestamp) {
+      return timestamp.toDate().toLocaleDateString();
+    }
+    if (typeof timestamp === 'string') {
+        return new Date(timestamp).toLocaleDateString();
+    }
+    return 'N/A';
+  }
 
   return (
     <Card>
@@ -43,9 +56,9 @@ export default function VendorOrdersPage() {
           <TableBody>
             {vendorOrders.map((order) => (
               <TableRow key={order.id}>
-                <TableCell className="font-medium">{order.id}</TableCell>
+                <TableCell className="font-medium">{order.id.substring(0, 7)}</TableCell>
                 <TableCell>{order.supplierName}</TableCell>
-                <TableCell>{order.date ? new Date(order.date).toLocaleDateString() : 'N/A'}</TableCell>
+                <TableCell>{formatDate(order.createdAt)}</TableCell>
                 <TableCell>
                   <Badge variant={order.status === 'Delivered' ? 'default' : 'secondary'} 
                     className={

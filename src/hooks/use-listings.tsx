@@ -3,8 +3,9 @@
 
 import { createContext, useContext, useCallback, ReactNode, useState, useEffect } from 'react';
 import type { Product } from '@/lib/types';
-import { allProducts as initialProducts } from '@/lib/data';
-import { useLocalStorage } from './use-local-storage';
+import { collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, query } from "firebase/firestore";
+import { db } from '@/lib/firebase';
+import { useProfile } from './use-profile';
 
 interface ListingsContextType {
   products: Product[];
@@ -25,34 +26,48 @@ export function useListings() {
 }
 
 export function ListingsProvider({ children }: { children: ReactNode }) {
-  const [products, setProducts] = useLocalStorage<Product[]>('products', initialProducts);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const { supplierProfile } = useProfile();
 
   useEffect(() => {
-    // The loading is finished once this effect runs on the client
-    setLoading(false);
+    setLoading(true);
+    const q = query(collection(db, "products"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const productsData: Product[] = [];
+      querySnapshot.forEach((doc) => {
+        productsData.push({ id: doc.id, ...doc.data() } as Product);
+      });
+      setProducts(productsData);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
   
-  const addProduct = useCallback((productData: Omit<Product, 'id' | 'supplierId' | 'supplierName' | 'supplierRating'>) => {
-    setProducts(prev => {
-        const newProduct: Product = {
-            id: `prod${Date.now()}`,
-            supplierId: 'sup1', // Mocked for now
-            supplierName: 'Fresh Veggies Co.', // Mocked for now
-            supplierRating: 4.8, // Mocked for now
-            ...productData,
-        };
-        return [newProduct, ...prev];
-    });
-  }, [setProducts]);
+  const addProduct = useCallback(async (productData: Omit<Product, 'id' | 'supplierId' | 'supplierName' | 'supplierRating'>) => {
+    if (!supplierProfile) {
+        console.error("No supplier profile found to add a listing.");
+        return;
+    }
+    const newProduct: Omit<Product, 'id'> = {
+        ...productData,
+        supplierId: supplierProfile.id,
+        supplierName: supplierProfile.businessName,
+        supplierRating: supplierProfile.rating,
+    };
+    await addDoc(collection(db, "products"), newProduct);
+  }, [supplierProfile]);
 
-  const updateProduct = useCallback((productId: string, updatedData: Partial<Product>) => {
-     setProducts(prev => prev.map(p => p.id === productId ? {...p, ...updatedData} : p));
-  }, [setProducts]);
+  const updateProduct = useCallback(async (productId: string, updatedData: Partial<Product>) => {
+     const productDocRef = doc(db, "products", productId);
+     await updateDoc(productDocRef, updatedData);
+  }, []);
 
-  const deleteProduct = useCallback((productId: string) => {
-    setProducts(prev => prev.filter(p => p.id !== productId));
-  }, [setProducts]);
+  const deleteProduct = useCallback(async (productId: string) => {
+    const productDocRef = doc(db, "products", productId);
+    await deleteDoc(productDocRef);
+  }, []);
 
   const value = {
     products,

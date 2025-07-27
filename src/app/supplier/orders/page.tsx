@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Badge } from "@/components/ui/badge";
@@ -9,20 +10,20 @@ import { MoreHorizontal } from "lucide-react";
 import { useOrders } from "@/hooks/use-orders";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useState } from "react";
-import { SupplierOrder } from "@/lib/types";
+import { Order } from "@/lib/types";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
+import { Timestamp } from "firebase/firestore";
 
 export default function SupplierOrdersPage() {
   const { supplierOrders, updateSupplierOrderStatus } = useOrders();
-  const [selectedOrder, setSelectedOrder] = useState<SupplierOrder | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isViewOpen, setIsViewOpen] = useState(false);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
   const { toast } = useToast();
 
-  const handleOpenDialog = (order: SupplierOrder, type: 'view' | 'update') => {
+  const handleOpenDialog = (order: Order, type: 'view' | 'update') => {
     setSelectedOrder(order);
     if (type === 'view') setIsViewOpen(true);
     if (type === 'update') setIsUpdateOpen(true);
@@ -40,10 +41,20 @@ export default function SupplierOrdersPage() {
       updateSupplierOrderStatus(selectedOrder.id, status);
       toast({
         title: "Order Status Updated",
-        description: `Order ${selectedOrder.id} is now ${status}.`,
+        description: `Order ${selectedOrder.id.substring(0,7)} is now ${status}.`,
       });
       setIsUpdateOpen(false);
     }
+  }
+  
+  const formatDate = (timestamp: any) => {
+    if (timestamp instanceof Timestamp) {
+      return timestamp.toDate().toLocaleDateString();
+    }
+    if (typeof timestamp === 'string') {
+        return new Date(timestamp).toLocaleDateString();
+    }
+    return 'N/A';
   }
 
   return (
@@ -70,8 +81,8 @@ export default function SupplierOrdersPage() {
             <TableBody>
               {supplierOrders.map((order) => (
                 <TableRow key={order.id}>
-                  <TableCell className="font-medium">{order.id}</TableCell>
-                  <TableCell>{new Date(order.date).toLocaleDateString()}</TableCell>
+                  <TableCell className="font-medium">{order.id.substring(0,7)}</TableCell>
+                  <TableCell>{formatDate(order.createdAt)}</TableCell>
                   <TableCell>{order.vendorName}</TableCell>
                   <TableCell>
                     <Badge variant={order.status === 'Delivered' ? 'default' : 'secondary'} 
@@ -112,15 +123,21 @@ export default function SupplierOrdersPage() {
       <Dialog open={isViewOpen} onOpenChange={setIsViewOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Order Details: {selectedOrder?.id}</DialogTitle>
+            <DialogTitle>Order Details: {selectedOrder?.id.substring(0,7)}</DialogTitle>
             <DialogDescription>
-              From {selectedOrder?.vendorName} on {selectedOrder ? new Date(selectedOrder.date).toLocaleDateString() : ''}
+              From {selectedOrder?.vendorName} on {selectedOrder ? formatDate(selectedOrder.createdAt) : ''}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <p><strong>Status:</strong> {selectedOrder?.status}</p>
-            {/* In a real app, you would fetch and display order items */}
-            <p className="text-muted-foreground">Item details are not available in this mock-up.</p>
+            <div>
+                <strong>Items:</strong>
+                <ul>
+                    {selectedOrder?.items.map(item => (
+                        <li key={item.productId}>{item.name} - {item.quantity} x ₹{item.price.toFixed(2)}</li>
+                    ))}
+                </ul>
+            </div>
             <Separator />
             <div className="flex justify-between font-bold">
               <p>Total:</p>
@@ -134,13 +151,13 @@ export default function SupplierOrdersPage() {
       <Dialog open={isUpdateOpen} onOpenChange={setIsUpdateOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Update Status for {selectedOrder?.id}</DialogTitle>
+            <DialogTitle>Update Status for {selectedOrder?.id.substring(0,7)}</DialogTitle>
             <DialogDescription>
               Select the new status for this order. The vendor will be notified.
             </DialogDescription>
           </DialogHeader>
            <div className="py-4">
-            <Select onValueChange={handleStatusChange} defaultValue={selectedOrder?.status}>
+            <Select onValueChange={(value) => handleStatusChange(value as Order['status'])} defaultValue={selectedOrder?.status}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a status" />
               </SelectTrigger>

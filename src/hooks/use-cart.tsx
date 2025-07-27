@@ -1,3 +1,4 @@
+
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
@@ -28,6 +29,7 @@ export function useCart() {
   return context;
 }
 
+// Cart remains in local storage as it's a client-side only feature.
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useLocalStorage<CartItem[]>('cart', []);
   const [total, setTotal] = useState(0);

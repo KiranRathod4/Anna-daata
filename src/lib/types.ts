@@ -1,3 +1,6 @@
+
+import { FieldValue } from "firebase/firestore";
+
 export interface User {
   id: string;
   name: string;
@@ -39,6 +42,7 @@ export interface Product {
 
 export interface OrderItem {
   productId: string;
+  name: string;
   quantity: number;
   price: number;
 }
@@ -46,13 +50,16 @@ export interface OrderItem {
 export interface Order {
   id: string;
   vendorId: string;
+  vendorName: string;
   supplierId: string;
+  supplierName: string;
   items: OrderItem[];
   total: number;
   status: 'Pending' | 'Confirmed' | 'Out for Delivery' | 'Delivered' | 'Cancelled';
-  date: string;
+  createdAt: FieldValue;
 }
 
+// These are now deprecated as we use the main Order type
 export interface VendorOrder {
     id: string;
     supplierName: string;
