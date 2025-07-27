@@ -16,10 +16,8 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCart } from "@/hooks/use-cart";
 import { ShoppingBag, Trash2 } from "lucide-react";
-import Image from 'next/image';
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export function MyCart() {
   const { cart, removeFromCart, total } = useCart();
@@ -63,7 +61,6 @@ export function MyCart() {
               <div className="flex flex-col gap-4 py-4">
                 {cart.map((item) => (
                   <div key={item.id} className="flex items-center gap-4">
-                    <Image src={item.imageUrl} alt={item.name} width={64} height={64} className="rounded-md object-cover"/>
                     <div className="flex-1">
                       <p className="font-medium">{item.name}</p>
                       <p className="text-sm text-muted-foreground">Quantity: {item.quantity ?? 1}</p>

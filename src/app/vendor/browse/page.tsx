@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -52,7 +51,6 @@ export default function BrowsePage() {
         {loading ? (
           Array.from({ length: 8 }).map((_, index) => (
              <Card key={index} className="overflow-hidden shadow-md flex flex-col">
-              <Skeleton className="w-full h-48" />
               <CardContent className="p-4 flex-grow">
                  <Skeleton className="h-5 w-3/4 mb-2" />
                  <Skeleton className="h-4 w-1/2" />
@@ -65,16 +63,6 @@ export default function BrowsePage() {
           ))
         ) : filteredProducts.map((product) => (
           <Card key={product.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col">
-            <CardHeader className="p-0">
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                data-ai-hint={product.aiHint}
-                width={400}
-                height={250}
-                className="w-full h-48 object-cover"
-              />
-            </CardHeader>
             <CardContent className="p-4 flex-grow">
               <div className="flex justify-between items-start">
                 <div>
@@ -86,7 +74,7 @@ export default function BrowsePage() {
                   <span className="text-sm font-bold">{product.supplierRating.toFixed(1)}</span>
                 </div>
               </div>
-              <p className="text-xl font-semibold mt-2">₹{product.price.toFixed(2)} <span className="text-sm font-normal text-muted-foreground">/ {product.unit}</span></p>
+              <p className="text-xl font-semibold mt-4">₹{product.price.toFixed(2)} <span className="text-sm font-normal text-muted-foreground">/ {product.unit}</span></p>
             </CardContent>
             <CardFooter className="p-4 bg-muted/50">
               <Button className="w-full gap-2" onClick={() => handleAddToCart(product)}>

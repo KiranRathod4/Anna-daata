@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useOrders } from "@/hooks/use-orders";
@@ -54,7 +53,6 @@ export default function CheckoutPage() {
           {cart.map((item) => (
             <div key={item.id} className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <Image src={item.imageUrl} alt={item.name} width={48} height={48} className="rounded-md object-cover" />
                 <div>
                   <p className="font-medium">{item.name}</p>
                   <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
