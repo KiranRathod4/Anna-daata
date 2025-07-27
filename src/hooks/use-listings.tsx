@@ -1,7 +1,7 @@
 
 "use client";
 
-import { createContext, useContext, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useCallback, ReactNode, useState, useEffect } from 'react';
 import type { Product } from '@/lib/types';
 import { allProducts as initialProducts } from '@/lib/data';
 import { useLocalStorage } from './use-local-storage';
@@ -11,6 +11,7 @@ interface ListingsContextType {
   addProduct: (productData: Omit<Product, 'id' | 'supplierId' | 'supplierName' | 'supplierRating'>) => void;
   updateProduct: (productId: string, updatedData: Partial<Product>) => void;
   deleteProduct: (productId: string) => void;
+  loading: boolean;
 }
 
 const ListingsContext = createContext<ListingsContextType | undefined>(undefined);
@@ -25,6 +26,12 @@ export function useListings() {
 
 export function ListingsProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useLocalStorage<Product[]>('products', initialProducts);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // The loading is finished once this effect runs on the client
+    setLoading(false);
+  }, []);
   
   const addProduct = useCallback((productData: Omit<Product, 'id' | 'supplierId' | 'supplierName' | 'supplierRating'>) => {
     setProducts(prev => {
@@ -51,7 +58,8 @@ export function ListingsProvider({ children }: { children: ReactNode }) {
     products,
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    loading,
   };
 
   return <ListingsContext.Provider value={value}>{children}</ListingsContext.Provider>;

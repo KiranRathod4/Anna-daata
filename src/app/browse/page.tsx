@@ -10,11 +10,12 @@ import { useListings } from "@/hooks/use-listings";
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
 import type { Product } from '@/lib/types';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 export default function BrowsePage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const { products: allProducts } = useListings();
+  const { products: allProducts, loading } = useListings();
   const { toast } = useToast();
   const { addToCart } = useCart();
 
@@ -48,7 +49,21 @@ export default function BrowsePage() {
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredProducts.map((product) => (
+        {loading ? (
+          Array.from({ length: 8 }).map((_, index) => (
+             <Card key={index} className="overflow-hidden shadow-md flex flex-col">
+              <Skeleton className="w-full h-48" />
+              <CardContent className="p-4 flex-grow">
+                 <Skeleton className="h-5 w-3/4 mb-2" />
+                 <Skeleton className="h-4 w-1/2" />
+                 <Skeleton className="h-6 w-1/4 mt-2" />
+              </CardContent>
+              <CardFooter className="p-4 bg-muted/50">
+                 <Skeleton className="h-10 w-full" />
+              </CardFooter>
+            </Card>
+          ))
+        ) : filteredProducts.map((product) => (
           <Card key={product.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col">
             <CardHeader className="p-0">
               <Image
