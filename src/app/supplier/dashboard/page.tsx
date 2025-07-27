@@ -200,25 +200,19 @@ export default function SupplierDashboard() {
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             {recentReviews.map((review) => (
-              <div key={review.id} className="flex items-start gap-4">
-                <Avatar>
-                  <AvatarImage src={review.avatarUrl} alt={review.vendorName} />
-                  <AvatarFallback>{review.vendorName.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <p className="font-semibold">{review.vendorName}</p>
-                    <div className="flex items-center gap-1">
-                      <span className="text-sm font-bold">
-                        {review.rating.toFixed(1)}
-                      </span>
-                      <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    </div>
+              <div key={review.id}>
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold">{review.vendorName}</p>
+                  <div className="flex items-center gap-1">
+                    <span className="text-sm font-bold">
+                      {review.rating.toFixed(1)}
+                    </span>
+                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    {review.comment}
-                  </p>
                 </div>
+                <p className="text-sm text-muted-foreground">
+                  {review.comment}
+                </p>
               </div>
             ))}
           </CardContent>
